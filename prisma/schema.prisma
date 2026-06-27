@@ -1,0 +1,211 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Subscriber {
+  id                 String             @id @default(uuid())
+  email              String             @unique
+  firstName          String             @map("first_name")
+  lastName           String             @map("last_name")
+  studentId          String?            @unique @map("student_id")
+  level              Int?               @map("level")
+  phone              String             @unique
+  residence          String
+  subscriptionStatus SubscriptionStatus @map("subscription_status")
+  institution        Institution        @relation(fields: [institutionId], references: [id])
+  joinedAt           DateTime           @default(now()) @map("joined_at")
+  updatedAt          DateTime           @updatedAt @map("updated_at")
+  institutionId      String             @map("institution_id")
+  plan               Plan?              @relation(fields: [planId], references: [id])
+  planId             String?            @map("plan_id")
+  payments           Payment[]
+  devices            Device[]
+  serviceRequests    ServiceRequest[]
+
+  @@index([email, phone, studentId])
+  @@map("subscribers")
+}
+
+model Plan {
+  id          String       @id @default(cuid())
+  type        PlanType     @unique
+  fee         Float
+  deviceLimit Int          @map("device_limit")
+  summary     String
+  benefits    String[]
+  subscribers Subscriber[]
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  payments    Payment[]
+
+  @@index([id, type])
+  @@map("plans")
+}
+
+model Institution {
+  id          String            @id @default(cuid())
+  name        String
+  shortName   String            @map("short_name")
+  location    String
+  subscribers Subscriber[]
+  status      InstitutionStatus
+  createdAt   DateTime          @default(now()) @map("created_at")
+  updatedAt   DateTime          @updatedAt @map("updated_at")
+
+  @@index([id, name, location, status])
+  @@map("institutions")
+}
+
+model Payment {
+  id           String        @id @default(cuid())
+  subscriber   Subscriber    @relation(fields: [subscriberId], references: [id])
+  subscriberId String        @map("subscriber_id")
+  amount       Float
+  method       PaymentMethod
+  reference    String
+  status       PaymentStatus
+  plan         Plan?         @relation(fields: [planId], references: [id])
+  planId       String?       @map("plan_id")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  @@index([id, subscriberId, reference])
+  @@map("payments")
+}
+
+model Device {
+  id                     String                  @id @default(uuid())
+  subscriber             Subscriber              @relation(fields: [subscriberId], references: [id])
+  subscriberId           String                  @map("subscriber_id")
+  type                   DeviceType
+  model                  String
+  brand                  String
+  os                     String
+  media                  String[]
+  createdAt              DateTime                @default(now()) @map("created_at")
+  updatedAt              DateTime                @updatedAt @map("updated_at")
+  customDeviceAttributes CustomDeviceAttribute[]
+  serviceRequests        ServiceRequest[]
+
+  @@index([id, subscriberId])
+  @@map("devices")
+}
+
+model CustomDeviceAttribute {
+  id       String @id @default(uuid())
+  key      String
+  value    String
+  device   Device @relation(fields: [deviceId], references: [id])
+  deviceId String @map("device_id")
+
+  @@index([id])
+  @@map("custom_device_attributes")
+}
+
+model ServiceRequest {
+  id                        String               @id @default(uuid())
+  subscriber                Subscriber           @relation(fields: [subscriberId], references: [id])
+  subscriberId              String               @map("subscriber_id")
+  device                    Device?              @relation(fields: [deviceId], references: [id])
+  deviceId                  String?              @map("device_id")
+  type                      String
+  title                     String
+  description               String
+  urgency                   UrgencySla
+  status                    ServiceRequestStatus
+  businessName              String?              @map("business_name")
+  desiredSubdomain          String?              @map("desired_subdomain")
+  websiteConceptDescription String?              @map("website_concept_description")
+  websitePageCount          Int?                 @map("website_page_count")
+  preferHosting             Boolean              @default(true) @map("prefer_hosting")
+  receipt                   String               @map("receipt")
+  remarks                   String?
+  createdAt                 DateTime             @default(now()) @map("created_at")
+  updatedAt                 DateTime             @updatedAt @map("updated_at")
+
+  @@index([id, subscriberId, type, status])
+  @@map("service_requests")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  title     String
+  from      String
+  body      String
+  isRead    Boolean  @default(false)
+  isSeen    Boolean  @default(false)
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([id, isDeleted, isRead, isSeen])
+  @@map("notifications")
+}
+
+enum UrgencySla {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ServiceRequestStatus {
+  OPEN
+  PENDING
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+  DELIVERED
+}
+
+enum PaymentMethod {
+  MOBILE_MONEY
+  CARD
+  CASH
+  BANK_TRANSFER
+  MPESA
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESSFUL
+  FAILED
+}
+
+enum DeviceType {
+  LAPTOP
+  MOBILE_PHONE
+  DESKTOP
+  TABLET
+  OTHER
+}
+
+enum InstitutionStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum PlanType {
+  BASIC
+  PREMIUM
+  BONANZA
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  PENDING
+  SUSPENDED
+}

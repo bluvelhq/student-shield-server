@@ -62,6 +62,14 @@ export const DeviceType = {
 export type DeviceType = (typeof DeviceType)[keyof typeof DeviceType]
 
 
+export const Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE'
+} as const
+
+export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
 export const InstitutionStatus = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',

@@ -19,7 +19,9 @@ model Subscriber {
   lastName           String             @map("last_name")
   studentId          String?            @unique @map("student_id")
   level              Int?               @map("level")
+  gender             Gender
   phone              String             @unique
+  serviceId          String             @unique
   residence          String
   subscriptionStatus SubscriptionStatus @map("subscription_status")
   institution        Institution        @relation(fields: [institutionId], references: [id])
@@ -46,7 +48,6 @@ model Plan {
   subscribers Subscriber[]
   createdAt   DateTime     @default(now()) @map("created_at")
   updatedAt   DateTime     @updatedAt @map("updated_at")
-  payments    Payment[]
 
   @@index([id, type])
   @@map("plans")
@@ -72,9 +73,8 @@ model Payment {
   subscriberId String        @map("subscriber_id")
   amount       Float
   method       PaymentMethod
-  reference    String
+  reference    String        @unique
   status       PaymentStatus
-  plan         Plan?         @relation(fields: [planId], references: [id])
   planId       String?       @map("plan_id")
   createdAt    DateTime      @default(now()) @map("created_at")
   updatedAt    DateTime      @updatedAt @map("updated_at")
@@ -188,6 +188,11 @@ enum DeviceType {
   DESKTOP
   TABLET
   OTHER
+}
+
+enum Gender {
+  MALE
+  FEMALE
 }
 
 enum InstitutionStatus {

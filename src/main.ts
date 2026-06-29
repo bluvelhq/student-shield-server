@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { configDotenv } from 'dotenv';
 import { join } from 'path';
@@ -10,7 +10,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 configDotenv();
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    rawBody: true,
+  });
 
   //enable versioning (use the URI version)
   app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1.0' });
@@ -33,6 +35,15 @@ async function bootstrap() {
 
   //set global prefix
   app.setGlobalPrefix('api');
+
+  //set global class validators
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
 
   //trust proxies
   app.set('trust proxy', 'loopback');

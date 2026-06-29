@@ -28,4 +28,19 @@ export default () => ({
     apiKey: process.env.ARKESEL_API_KEY || 'apiKey',
     smsUrl: process.env.ARKESEL_SMS_URL || 'smsUrl',
   },
+  paystack: {
+    liveSecretKey: process.env.PAYSTACK_LIVE_SECRET_KEY || 'liveSecretKey',
+    livePublicKey: process.env.PAYSTACK_LIVE_PUBLIC_KEY || 'livePublicKey',
+    testSecretKey: process.env.PAYSTACK_TEST_SECRET_KEY || 'testSecretKey',
+    testPublicKey: process.env.PAYSTACK_TEST_PUBLIC_KEY || 'testPublicKey',
+    baseUrl: process.env.PAYSTACK_BASE_URL || 'https://api.paystack.co',
+    webhookUrl: process.env.PAYSTACK_WEBHOOK_URL || 'webhookUrl',
+  },
+  brevo: {
+    pass: process.env.BREVO_SMTP_KEY,
+    port: process.env.BREVO_PORT,
+    user: process.env.BREVO_USER,
+    host: process.env.BREVO_HOST,
+    from: process.env.MAIL_FROM
+  },
 });

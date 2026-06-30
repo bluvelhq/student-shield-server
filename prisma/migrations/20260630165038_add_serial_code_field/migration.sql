@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "devices" ADD COLUMN     "name" TEXT,
+ADD COLUMN     "serialCode" TEXT,
+ALTER COLUMN "model" DROP NOT NULL,
+ALTER COLUMN "brand" DROP NOT NULL,
+ALTER COLUMN "os" DROP NOT NULL;

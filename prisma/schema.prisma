@@ -15,17 +15,23 @@ datasource db {
 model Subscriber {
   id                 String             @id @default(uuid())
   email              String             @unique
+  role               Role
   firstName          String             @map("first_name")
   lastName           String             @map("last_name")
   studentId          String?            @unique @map("student_id")
   level              Int?               @map("level")
   gender             Gender
+  profilePicture     String?            @map("profile_picture")
   phone              String             @unique
-  serviceId          String             @unique
+  serviceId          String             @unique @map("service_id")
   residence          String
+  deviceCount        Int                @default(0) @map("device_count")
+  accountStatus      AccountStatus      @default(ACTIVE)
   subscriptionStatus SubscriptionStatus @map("subscription_status")
   institution        Institution        @relation(fields: [institutionId], references: [id])
   joinedAt           DateTime           @default(now()) @map("joined_at")
+  lastLoginAt        DateTime?          @map("last_login_at")
+  lastActiveAt       DateTime?          @map("last_active_at")
   updatedAt          DateTime           @updatedAt @map("updated_at")
   institutionId      String             @map("institution_id")
   plan               Plan?              @relation(fields: [planId], references: [id])
@@ -42,7 +48,7 @@ model Plan {
   id          String       @id @default(cuid())
   type        PlanType     @unique
   fee         Float
-  deviceLimit Int          @map("device_limit")
+  maxDevices  Int          @map("max_devices")
   summary     String
   benefits    String[]
   subscribers Subscriber[]
@@ -88,9 +94,11 @@ model Device {
   subscriber             Subscriber              @relation(fields: [subscriberId], references: [id])
   subscriberId           String                  @map("subscriber_id")
   type                   DeviceType
-  model                  String
-  brand                  String
-  os                     String
+  model                  String?
+  serialCode             String?
+  name                   String?
+  brand                  String?
+  os                     String?
   media                  String[]
   createdAt              DateTime                @default(now()) @map("created_at")
   updatedAt              DateTime                @updatedAt @map("updated_at")
@@ -110,6 +118,23 @@ model CustomDeviceAttribute {
 
   @@index([id])
   @@map("custom_device_attributes")
+}
+
+model Admin {
+  id             String    @id @default(uuid())
+  privilege      Role
+  email          String    @unique
+  serviceId      String    @unique @map("service_id")
+  firstName      String    @map("first_name")
+  lastName       String    @map("last_name")
+  profilePicture String?   @map("profile_picture")
+  lastLoginAt    DateTime? @map("last_login_at")
+  lastActiveAt   DateTime? @map("last_active_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  @@index([id, serviceId])
+  @@map("admins")
 }
 
 model ServiceRequest {
@@ -176,6 +201,13 @@ enum PaymentMethod {
   MPESA
 }
 
+enum AccountStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  DELETED
+}
+
 enum PaymentStatus {
   PENDING
   SUCCESSFUL
@@ -213,4 +245,10 @@ enum SubscriptionStatus {
   EXPIRED
   PENDING
   SUSPENDED
+}
+
+enum Role {
+  SUBSCRIBER
+  ADMIN
+  SUPER_ADMIN
 }

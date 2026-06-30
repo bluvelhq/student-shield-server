@@ -48,6 +48,11 @@ export type Device = Prisma.DeviceModel
  */
 export type CustomDeviceAttribute = Prisma.CustomDeviceAttributeModel
 /**
+ * Model Admin
+ * 
+ */
+export type Admin = Prisma.AdminModel
+/**
  * Model ServiceRequest
  * 
  */

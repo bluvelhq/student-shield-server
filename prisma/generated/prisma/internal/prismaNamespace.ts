@@ -390,6 +390,7 @@ export const ModelName = {
   Payment: 'Payment',
   Device: 'Device',
   CustomDeviceAttribute: 'CustomDeviceAttribute',
+  Admin: 'Admin',
   ServiceRequest: 'ServiceRequest',
   Notification: 'Notification'
 } as const
@@ -407,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "subscriber" | "plan" | "institution" | "payment" | "device" | "customDeviceAttribute" | "serviceRequest" | "notification"
+    modelProps: "subscriber" | "plan" | "institution" | "payment" | "device" | "customDeviceAttribute" | "admin" | "serviceRequest" | "notification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -855,6 +856,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Admin: {
+      payload: Prisma.$AdminPayload<ExtArgs>
+      fields: Prisma.AdminFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AdminFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AdminFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPayload>
+        }
+        findFirst: {
+          args: Prisma.AdminFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AdminFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPayload>
+        }
+        findMany: {
+          args: Prisma.AdminFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPayload>[]
+        }
+        create: {
+          args: Prisma.AdminCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPayload>
+        }
+        createMany: {
+          args: Prisma.AdminCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AdminCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPayload>[]
+        }
+        delete: {
+          args: Prisma.AdminDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPayload>
+        }
+        update: {
+          args: Prisma.AdminUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPayload>
+        }
+        deleteMany: {
+          args: Prisma.AdminDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AdminUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AdminUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPayload>[]
+        }
+        upsert: {
+          args: Prisma.AdminUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPayload>
+        }
+        aggregate: {
+          args: Prisma.AdminAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAdmin>
+        }
+        groupBy: {
+          args: Prisma.AdminGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdminGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AdminCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdminCountAggregateOutputType> | number
+        }
+      }
+    }
     ServiceRequest: {
       payload: Prisma.$ServiceRequestPayload<ExtArgs>
       fields: Prisma.ServiceRequestFieldRefs
@@ -1045,16 +1120,22 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const SubscriberScalarFieldEnum = {
   id: 'id',
   email: 'email',
+  role: 'role',
   firstName: 'firstName',
   lastName: 'lastName',
   studentId: 'studentId',
   level: 'level',
   gender: 'gender',
+  profilePicture: 'profilePicture',
   phone: 'phone',
   serviceId: 'serviceId',
   residence: 'residence',
+  deviceCount: 'deviceCount',
+  accountStatus: 'accountStatus',
   subscriptionStatus: 'subscriptionStatus',
   joinedAt: 'joinedAt',
+  lastLoginAt: 'lastLoginAt',
+  lastActiveAt: 'lastActiveAt',
   updatedAt: 'updatedAt',
   institutionId: 'institutionId',
   planId: 'planId'
@@ -1067,7 +1148,7 @@ export const PlanScalarFieldEnum = {
   id: 'id',
   type: 'type',
   fee: 'fee',
-  deviceLimit: 'deviceLimit',
+  maxDevices: 'maxDevices',
   summary: 'summary',
   benefits: 'benefits',
   createdAt: 'createdAt',
@@ -1110,6 +1191,8 @@ export const DeviceScalarFieldEnum = {
   subscriberId: 'subscriberId',
   type: 'type',
   model: 'model',
+  serialCode: 'serialCode',
+  name: 'name',
   brand: 'brand',
   os: 'os',
   media: 'media',
@@ -1128,6 +1211,23 @@ export const CustomDeviceAttributeScalarFieldEnum = {
 } as const
 
 export type CustomDeviceAttributeScalarFieldEnum = (typeof CustomDeviceAttributeScalarFieldEnum)[keyof typeof CustomDeviceAttributeScalarFieldEnum]
+
+
+export const AdminScalarFieldEnum = {
+  id: 'id',
+  privilege: 'privilege',
+  email: 'email',
+  serviceId: 'serviceId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  profilePicture: 'profilePicture',
+  lastLoginAt: 'lastLoginAt',
+  lastActiveAt: 'lastActiveAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
 
 
 export const ServiceRequestScalarFieldEnum = {
@@ -1213,6 +1313,20 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'Role'
+ */
+export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+/**
+ * Reference to a field of type 'Role[]'
+ */
+export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -1237,6 +1351,20 @@ export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
  * Reference to a field of type 'Gender[]'
  */
 export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AccountStatus'
+ */
+export type EnumAccountStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'AccountStatus[]'
+ */
+export type ListEnumAccountStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountStatus[]'>
     
 
 
@@ -1502,6 +1630,7 @@ export type GlobalOmitConfig = {
   payment?: Prisma.PaymentOmit
   device?: Prisma.DeviceOmit
   customDeviceAttribute?: Prisma.CustomDeviceAttributeOmit
+  admin?: Prisma.AdminOmit
   serviceRequest?: Prisma.ServiceRequestOmit
   notification?: Prisma.NotificationOmit
 }

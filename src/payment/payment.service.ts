@@ -5,6 +5,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { PaymentStatus } from 'prisma/generated/prisma/enums';
 import { firstValueFrom } from 'rxjs';
 import { PrismaService } from 'src/prisma.service';
 
@@ -26,7 +27,7 @@ export class PaymentService {
     try {
       const payload = {
         email,
-        amount,
+        amount: amount * 100,
         channels,
       };
 
@@ -98,6 +99,38 @@ export class PaymentService {
       throw new InternalServerErrorException(
         'Failed to initialize transaction',
       );
+    }
+  }
+
+  async generateRetryCheckoutUrl(
+    email: string,
+    amount: number,
+    reference: string,
+  ) {
+    try {
+      const transaction = await this.initializeTransaction(email, amount, [
+        'card',
+        'bank',
+        'usdt',
+        'qr',
+        'mobile_money',
+      ]);
+
+      await this.prisma.payment.update({
+        where: {
+          reference,
+        },
+        data: {
+          reference: transaction.data.reference,
+          amount: amount,
+          status: PaymentStatus.PENDING,
+        },
+      });
+
+      return transaction.data.authorization_url;
+    } catch (error) {
+      this.logger.error(error);
+      throw new InternalServerErrorException('Failed to generate checkout URL');
     }
   }
 }

@@ -28,25 +28,33 @@ export type AggregateSubscriber = {
 
 export type SubscriberAvgAggregateOutputType = {
   level: number | null
+  deviceCount: number | null
 }
 
 export type SubscriberSumAggregateOutputType = {
   level: number | null
+  deviceCount: number | null
 }
 
 export type SubscriberMinAggregateOutputType = {
   id: string | null
   email: string | null
+  role: $Enums.Role | null
   firstName: string | null
   lastName: string | null
   studentId: string | null
   level: number | null
   gender: $Enums.Gender | null
+  profilePicture: string | null
   phone: string | null
   serviceId: string | null
   residence: string | null
+  deviceCount: number | null
+  accountStatus: $Enums.AccountStatus | null
   subscriptionStatus: $Enums.SubscriptionStatus | null
   joinedAt: Date | null
+  lastLoginAt: Date | null
+  lastActiveAt: Date | null
   updatedAt: Date | null
   institutionId: string | null
   planId: string | null
@@ -55,16 +63,22 @@ export type SubscriberMinAggregateOutputType = {
 export type SubscriberMaxAggregateOutputType = {
   id: string | null
   email: string | null
+  role: $Enums.Role | null
   firstName: string | null
   lastName: string | null
   studentId: string | null
   level: number | null
   gender: $Enums.Gender | null
+  profilePicture: string | null
   phone: string | null
   serviceId: string | null
   residence: string | null
+  deviceCount: number | null
+  accountStatus: $Enums.AccountStatus | null
   subscriptionStatus: $Enums.SubscriptionStatus | null
   joinedAt: Date | null
+  lastLoginAt: Date | null
+  lastActiveAt: Date | null
   updatedAt: Date | null
   institutionId: string | null
   planId: string | null
@@ -73,16 +87,22 @@ export type SubscriberMaxAggregateOutputType = {
 export type SubscriberCountAggregateOutputType = {
   id: number
   email: number
+  role: number
   firstName: number
   lastName: number
   studentId: number
   level: number
   gender: number
+  profilePicture: number
   phone: number
   serviceId: number
   residence: number
+  deviceCount: number
+  accountStatus: number
   subscriptionStatus: number
   joinedAt: number
+  lastLoginAt: number
+  lastActiveAt: number
   updatedAt: number
   institutionId: number
   planId: number
@@ -92,25 +112,33 @@ export type SubscriberCountAggregateOutputType = {
 
 export type SubscriberAvgAggregateInputType = {
   level?: true
+  deviceCount?: true
 }
 
 export type SubscriberSumAggregateInputType = {
   level?: true
+  deviceCount?: true
 }
 
 export type SubscriberMinAggregateInputType = {
   id?: true
   email?: true
+  role?: true
   firstName?: true
   lastName?: true
   studentId?: true
   level?: true
   gender?: true
+  profilePicture?: true
   phone?: true
   serviceId?: true
   residence?: true
+  deviceCount?: true
+  accountStatus?: true
   subscriptionStatus?: true
   joinedAt?: true
+  lastLoginAt?: true
+  lastActiveAt?: true
   updatedAt?: true
   institutionId?: true
   planId?: true
@@ -119,16 +147,22 @@ export type SubscriberMinAggregateInputType = {
 export type SubscriberMaxAggregateInputType = {
   id?: true
   email?: true
+  role?: true
   firstName?: true
   lastName?: true
   studentId?: true
   level?: true
   gender?: true
+  profilePicture?: true
   phone?: true
   serviceId?: true
   residence?: true
+  deviceCount?: true
+  accountStatus?: true
   subscriptionStatus?: true
   joinedAt?: true
+  lastLoginAt?: true
+  lastActiveAt?: true
   updatedAt?: true
   institutionId?: true
   planId?: true
@@ -137,16 +171,22 @@ export type SubscriberMaxAggregateInputType = {
 export type SubscriberCountAggregateInputType = {
   id?: true
   email?: true
+  role?: true
   firstName?: true
   lastName?: true
   studentId?: true
   level?: true
   gender?: true
+  profilePicture?: true
   phone?: true
   serviceId?: true
   residence?: true
+  deviceCount?: true
+  accountStatus?: true
   subscriptionStatus?: true
   joinedAt?: true
+  lastLoginAt?: true
+  lastActiveAt?: true
   updatedAt?: true
   institutionId?: true
   planId?: true
@@ -242,16 +282,22 @@ export type SubscriberGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type SubscriberGroupByOutputType = {
   id: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId: string | null
   level: number | null
   gender: $Enums.Gender
+  profilePicture: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount: number
+  accountStatus: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt: Date
+  lastLoginAt: Date | null
+  lastActiveAt: Date | null
   updatedAt: Date
   institutionId: string
   planId: string | null
@@ -283,16 +329,22 @@ export type SubscriberWhereInput = {
   NOT?: Prisma.SubscriberWhereInput | Prisma.SubscriberWhereInput[]
   id?: Prisma.StringFilter<"Subscriber"> | string
   email?: Prisma.StringFilter<"Subscriber"> | string
+  role?: Prisma.EnumRoleFilter<"Subscriber"> | $Enums.Role
   firstName?: Prisma.StringFilter<"Subscriber"> | string
   lastName?: Prisma.StringFilter<"Subscriber"> | string
   studentId?: Prisma.StringNullableFilter<"Subscriber"> | string | null
   level?: Prisma.IntNullableFilter<"Subscriber"> | number | null
   gender?: Prisma.EnumGenderFilter<"Subscriber"> | $Enums.Gender
+  profilePicture?: Prisma.StringNullableFilter<"Subscriber"> | string | null
   phone?: Prisma.StringFilter<"Subscriber"> | string
   serviceId?: Prisma.StringFilter<"Subscriber"> | string
   residence?: Prisma.StringFilter<"Subscriber"> | string
+  deviceCount?: Prisma.IntFilter<"Subscriber"> | number
+  accountStatus?: Prisma.EnumAccountStatusFilter<"Subscriber"> | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFilter<"Subscriber"> | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFilter<"Subscriber"> | Date | string
+  lastLoginAt?: Prisma.DateTimeNullableFilter<"Subscriber"> | Date | string | null
+  lastActiveAt?: Prisma.DateTimeNullableFilter<"Subscriber"> | Date | string | null
   updatedAt?: Prisma.DateTimeFilter<"Subscriber"> | Date | string
   institutionId?: Prisma.StringFilter<"Subscriber"> | string
   planId?: Prisma.StringNullableFilter<"Subscriber"> | string | null
@@ -306,16 +358,22 @@ export type SubscriberWhereInput = {
 export type SubscriberOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   studentId?: Prisma.SortOrderInput | Prisma.SortOrder
   level?: Prisma.SortOrderInput | Prisma.SortOrder
   gender?: Prisma.SortOrder
+  profilePicture?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
   residence?: Prisma.SortOrder
+  deviceCount?: Prisma.SortOrder
+  accountStatus?: Prisma.SortOrder
   subscriptionStatus?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   institutionId?: Prisma.SortOrder
   planId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -335,13 +393,19 @@ export type SubscriberWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.SubscriberWhereInput | Prisma.SubscriberWhereInput[]
   OR?: Prisma.SubscriberWhereInput[]
   NOT?: Prisma.SubscriberWhereInput | Prisma.SubscriberWhereInput[]
+  role?: Prisma.EnumRoleFilter<"Subscriber"> | $Enums.Role
   firstName?: Prisma.StringFilter<"Subscriber"> | string
   lastName?: Prisma.StringFilter<"Subscriber"> | string
   level?: Prisma.IntNullableFilter<"Subscriber"> | number | null
   gender?: Prisma.EnumGenderFilter<"Subscriber"> | $Enums.Gender
+  profilePicture?: Prisma.StringNullableFilter<"Subscriber"> | string | null
   residence?: Prisma.StringFilter<"Subscriber"> | string
+  deviceCount?: Prisma.IntFilter<"Subscriber"> | number
+  accountStatus?: Prisma.EnumAccountStatusFilter<"Subscriber"> | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFilter<"Subscriber"> | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFilter<"Subscriber"> | Date | string
+  lastLoginAt?: Prisma.DateTimeNullableFilter<"Subscriber"> | Date | string | null
+  lastActiveAt?: Prisma.DateTimeNullableFilter<"Subscriber"> | Date | string | null
   updatedAt?: Prisma.DateTimeFilter<"Subscriber"> | Date | string
   institutionId?: Prisma.StringFilter<"Subscriber"> | string
   planId?: Prisma.StringNullableFilter<"Subscriber"> | string | null
@@ -355,16 +419,22 @@ export type SubscriberWhereUniqueInput = Prisma.AtLeast<{
 export type SubscriberOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   studentId?: Prisma.SortOrderInput | Prisma.SortOrder
   level?: Prisma.SortOrderInput | Prisma.SortOrder
   gender?: Prisma.SortOrder
+  profilePicture?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
   residence?: Prisma.SortOrder
+  deviceCount?: Prisma.SortOrder
+  accountStatus?: Prisma.SortOrder
   subscriptionStatus?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   institutionId?: Prisma.SortOrder
   planId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -381,16 +451,22 @@ export type SubscriberScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SubscriberScalarWhereWithAggregatesInput | Prisma.SubscriberScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Subscriber"> | string
   email?: Prisma.StringWithAggregatesFilter<"Subscriber"> | string
+  role?: Prisma.EnumRoleWithAggregatesFilter<"Subscriber"> | $Enums.Role
   firstName?: Prisma.StringWithAggregatesFilter<"Subscriber"> | string
   lastName?: Prisma.StringWithAggregatesFilter<"Subscriber"> | string
   studentId?: Prisma.StringNullableWithAggregatesFilter<"Subscriber"> | string | null
   level?: Prisma.IntNullableWithAggregatesFilter<"Subscriber"> | number | null
   gender?: Prisma.EnumGenderWithAggregatesFilter<"Subscriber"> | $Enums.Gender
+  profilePicture?: Prisma.StringNullableWithAggregatesFilter<"Subscriber"> | string | null
   phone?: Prisma.StringWithAggregatesFilter<"Subscriber"> | string
   serviceId?: Prisma.StringWithAggregatesFilter<"Subscriber"> | string
   residence?: Prisma.StringWithAggregatesFilter<"Subscriber"> | string
+  deviceCount?: Prisma.IntWithAggregatesFilter<"Subscriber"> | number
+  accountStatus?: Prisma.EnumAccountStatusWithAggregatesFilter<"Subscriber"> | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusWithAggregatesFilter<"Subscriber"> | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeWithAggregatesFilter<"Subscriber"> | Date | string
+  lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Subscriber"> | Date | string | null
+  lastActiveAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Subscriber"> | Date | string | null
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Subscriber"> | Date | string
   institutionId?: Prisma.StringWithAggregatesFilter<"Subscriber"> | string
   planId?: Prisma.StringNullableWithAggregatesFilter<"Subscriber"> | string | null
@@ -399,16 +475,22 @@ export type SubscriberScalarWhereWithAggregatesInput = {
 export type SubscriberCreateInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   institution: Prisma.InstitutionCreateNestedOneWithoutSubscribersInput
   plan?: Prisma.PlanCreateNestedOneWithoutSubscribersInput
@@ -420,16 +502,22 @@ export type SubscriberCreateInput = {
 export type SubscriberUncheckedCreateInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   institutionId: string
   planId?: string | null
@@ -441,16 +529,22 @@ export type SubscriberUncheckedCreateInput = {
 export type SubscriberUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institution?: Prisma.InstitutionUpdateOneRequiredWithoutSubscribersNestedInput
   plan?: Prisma.PlanUpdateOneWithoutSubscribersNestedInput
@@ -462,16 +556,22 @@ export type SubscriberUpdateInput = {
 export type SubscriberUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institutionId?: Prisma.StringFieldUpdateOperationsInput | string
   planId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -483,16 +583,22 @@ export type SubscriberUncheckedUpdateInput = {
 export type SubscriberCreateManyInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   institutionId: string
   planId?: string | null
@@ -501,32 +607,44 @@ export type SubscriberCreateManyInput = {
 export type SubscriberUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SubscriberUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institutionId?: Prisma.StringFieldUpdateOperationsInput | string
   planId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -535,16 +653,22 @@ export type SubscriberUncheckedUpdateManyInput = {
 export type SubscriberCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   level?: Prisma.SortOrder
   gender?: Prisma.SortOrder
+  profilePicture?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
   residence?: Prisma.SortOrder
+  deviceCount?: Prisma.SortOrder
+  accountStatus?: Prisma.SortOrder
   subscriptionStatus?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   institutionId?: Prisma.SortOrder
   planId?: Prisma.SortOrder
@@ -552,21 +676,28 @@ export type SubscriberCountOrderByAggregateInput = {
 
 export type SubscriberAvgOrderByAggregateInput = {
   level?: Prisma.SortOrder
+  deviceCount?: Prisma.SortOrder
 }
 
 export type SubscriberMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   level?: Prisma.SortOrder
   gender?: Prisma.SortOrder
+  profilePicture?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
   residence?: Prisma.SortOrder
+  deviceCount?: Prisma.SortOrder
+  accountStatus?: Prisma.SortOrder
   subscriptionStatus?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   institutionId?: Prisma.SortOrder
   planId?: Prisma.SortOrder
@@ -575,16 +706,22 @@ export type SubscriberMaxOrderByAggregateInput = {
 export type SubscriberMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   level?: Prisma.SortOrder
   gender?: Prisma.SortOrder
+  profilePicture?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
   residence?: Prisma.SortOrder
+  deviceCount?: Prisma.SortOrder
+  accountStatus?: Prisma.SortOrder
   subscriptionStatus?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
+  lastActiveAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   institutionId?: Prisma.SortOrder
   planId?: Prisma.SortOrder
@@ -592,6 +729,7 @@ export type SubscriberMinOrderByAggregateInput = {
 
 export type SubscriberSumOrderByAggregateInput = {
   level?: Prisma.SortOrder
+  deviceCount?: Prisma.SortOrder
 }
 
 export type SubscriberListRelationFilter = {
@@ -613,6 +751,10 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
+export type EnumRoleFieldUpdateOperationsInput = {
+  set?: $Enums.Role
+}
+
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
@@ -629,12 +771,28 @@ export type EnumGenderFieldUpdateOperationsInput = {
   set?: $Enums.Gender
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type EnumAccountStatusFieldUpdateOperationsInput = {
+  set?: $Enums.AccountStatus
+}
+
 export type EnumSubscriptionStatusFieldUpdateOperationsInput = {
   set?: $Enums.SubscriptionStatus
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type SubscriberCreateNestedManyWithoutPlanInput = {
@@ -766,16 +924,22 @@ export type SubscriberUpdateOneRequiredWithoutServiceRequestsNestedInput = {
 export type SubscriberCreateWithoutPlanInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   institution: Prisma.InstitutionCreateNestedOneWithoutSubscribersInput
   payments?: Prisma.PaymentCreateNestedManyWithoutSubscriberInput
@@ -786,16 +950,22 @@ export type SubscriberCreateWithoutPlanInput = {
 export type SubscriberUncheckedCreateWithoutPlanInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   institutionId: string
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSubscriberInput
@@ -835,16 +1005,22 @@ export type SubscriberScalarWhereInput = {
   NOT?: Prisma.SubscriberScalarWhereInput | Prisma.SubscriberScalarWhereInput[]
   id?: Prisma.StringFilter<"Subscriber"> | string
   email?: Prisma.StringFilter<"Subscriber"> | string
+  role?: Prisma.EnumRoleFilter<"Subscriber"> | $Enums.Role
   firstName?: Prisma.StringFilter<"Subscriber"> | string
   lastName?: Prisma.StringFilter<"Subscriber"> | string
   studentId?: Prisma.StringNullableFilter<"Subscriber"> | string | null
   level?: Prisma.IntNullableFilter<"Subscriber"> | number | null
   gender?: Prisma.EnumGenderFilter<"Subscriber"> | $Enums.Gender
+  profilePicture?: Prisma.StringNullableFilter<"Subscriber"> | string | null
   phone?: Prisma.StringFilter<"Subscriber"> | string
   serviceId?: Prisma.StringFilter<"Subscriber"> | string
   residence?: Prisma.StringFilter<"Subscriber"> | string
+  deviceCount?: Prisma.IntFilter<"Subscriber"> | number
+  accountStatus?: Prisma.EnumAccountStatusFilter<"Subscriber"> | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFilter<"Subscriber"> | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFilter<"Subscriber"> | Date | string
+  lastLoginAt?: Prisma.DateTimeNullableFilter<"Subscriber"> | Date | string | null
+  lastActiveAt?: Prisma.DateTimeNullableFilter<"Subscriber"> | Date | string | null
   updatedAt?: Prisma.DateTimeFilter<"Subscriber"> | Date | string
   institutionId?: Prisma.StringFilter<"Subscriber"> | string
   planId?: Prisma.StringNullableFilter<"Subscriber"> | string | null
@@ -853,16 +1029,22 @@ export type SubscriberScalarWhereInput = {
 export type SubscriberCreateWithoutInstitutionInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   plan?: Prisma.PlanCreateNestedOneWithoutSubscribersInput
   payments?: Prisma.PaymentCreateNestedManyWithoutSubscriberInput
@@ -873,16 +1055,22 @@ export type SubscriberCreateWithoutInstitutionInput = {
 export type SubscriberUncheckedCreateWithoutInstitutionInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   planId?: string | null
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSubscriberInput
@@ -919,16 +1107,22 @@ export type SubscriberUpdateManyWithWhereWithoutInstitutionInput = {
 export type SubscriberCreateWithoutPaymentsInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   institution: Prisma.InstitutionCreateNestedOneWithoutSubscribersInput
   plan?: Prisma.PlanCreateNestedOneWithoutSubscribersInput
@@ -939,16 +1133,22 @@ export type SubscriberCreateWithoutPaymentsInput = {
 export type SubscriberUncheckedCreateWithoutPaymentsInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   institutionId: string
   planId?: string | null
@@ -975,16 +1175,22 @@ export type SubscriberUpdateToOneWithWhereWithoutPaymentsInput = {
 export type SubscriberUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institution?: Prisma.InstitutionUpdateOneRequiredWithoutSubscribersNestedInput
   plan?: Prisma.PlanUpdateOneWithoutSubscribersNestedInput
@@ -995,16 +1201,22 @@ export type SubscriberUpdateWithoutPaymentsInput = {
 export type SubscriberUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institutionId?: Prisma.StringFieldUpdateOperationsInput | string
   planId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1015,16 +1227,22 @@ export type SubscriberUncheckedUpdateWithoutPaymentsInput = {
 export type SubscriberCreateWithoutDevicesInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   institution: Prisma.InstitutionCreateNestedOneWithoutSubscribersInput
   plan?: Prisma.PlanCreateNestedOneWithoutSubscribersInput
@@ -1035,16 +1253,22 @@ export type SubscriberCreateWithoutDevicesInput = {
 export type SubscriberUncheckedCreateWithoutDevicesInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   institutionId: string
   planId?: string | null
@@ -1071,16 +1295,22 @@ export type SubscriberUpdateToOneWithWhereWithoutDevicesInput = {
 export type SubscriberUpdateWithoutDevicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institution?: Prisma.InstitutionUpdateOneRequiredWithoutSubscribersNestedInput
   plan?: Prisma.PlanUpdateOneWithoutSubscribersNestedInput
@@ -1091,16 +1321,22 @@ export type SubscriberUpdateWithoutDevicesInput = {
 export type SubscriberUncheckedUpdateWithoutDevicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institutionId?: Prisma.StringFieldUpdateOperationsInput | string
   planId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1111,16 +1347,22 @@ export type SubscriberUncheckedUpdateWithoutDevicesInput = {
 export type SubscriberCreateWithoutServiceRequestsInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   institution: Prisma.InstitutionCreateNestedOneWithoutSubscribersInput
   plan?: Prisma.PlanCreateNestedOneWithoutSubscribersInput
@@ -1131,16 +1373,22 @@ export type SubscriberCreateWithoutServiceRequestsInput = {
 export type SubscriberUncheckedCreateWithoutServiceRequestsInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   institutionId: string
   planId?: string | null
@@ -1167,16 +1415,22 @@ export type SubscriberUpdateToOneWithWhereWithoutServiceRequestsInput = {
 export type SubscriberUpdateWithoutServiceRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institution?: Prisma.InstitutionUpdateOneRequiredWithoutSubscribersNestedInput
   plan?: Prisma.PlanUpdateOneWithoutSubscribersNestedInput
@@ -1187,16 +1441,22 @@ export type SubscriberUpdateWithoutServiceRequestsInput = {
 export type SubscriberUncheckedUpdateWithoutServiceRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institutionId?: Prisma.StringFieldUpdateOperationsInput | string
   planId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1207,16 +1467,22 @@ export type SubscriberUncheckedUpdateWithoutServiceRequestsInput = {
 export type SubscriberCreateManyPlanInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   institutionId: string
 }
@@ -1224,16 +1490,22 @@ export type SubscriberCreateManyPlanInput = {
 export type SubscriberUpdateWithoutPlanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institution?: Prisma.InstitutionUpdateOneRequiredWithoutSubscribersNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutSubscriberNestedInput
@@ -1244,16 +1516,22 @@ export type SubscriberUpdateWithoutPlanInput = {
 export type SubscriberUncheckedUpdateWithoutPlanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institutionId?: Prisma.StringFieldUpdateOperationsInput | string
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutSubscriberNestedInput
@@ -1264,16 +1542,22 @@ export type SubscriberUncheckedUpdateWithoutPlanInput = {
 export type SubscriberUncheckedUpdateManyWithoutPlanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institutionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -1281,16 +1565,22 @@ export type SubscriberUncheckedUpdateManyWithoutPlanInput = {
 export type SubscriberCreateManyInstitutionInput = {
   id?: string
   email: string
+  role: $Enums.Role
   firstName: string
   lastName: string
   studentId?: string | null
   level?: number | null
   gender: $Enums.Gender
+  profilePicture?: string | null
   phone: string
   serviceId: string
   residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
   subscriptionStatus: $Enums.SubscriptionStatus
   joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
   updatedAt?: Date | string
   planId?: string | null
 }
@@ -1298,16 +1588,22 @@ export type SubscriberCreateManyInstitutionInput = {
 export type SubscriberUpdateWithoutInstitutionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   plan?: Prisma.PlanUpdateOneWithoutSubscribersNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutSubscriberNestedInput
@@ -1318,16 +1614,22 @@ export type SubscriberUpdateWithoutInstitutionInput = {
 export type SubscriberUncheckedUpdateWithoutInstitutionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   planId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutSubscriberNestedInput
@@ -1338,16 +1640,22 @@ export type SubscriberUncheckedUpdateWithoutInstitutionInput = {
 export type SubscriberUncheckedUpdateManyWithoutInstitutionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
   residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   planId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -1404,16 +1712,22 @@ export type SubscriberCountOutputTypeCountServiceRequestsArgs<ExtArgs extends ru
 export type SubscriberSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
+  role?: boolean
   firstName?: boolean
   lastName?: boolean
   studentId?: boolean
   level?: boolean
   gender?: boolean
+  profilePicture?: boolean
   phone?: boolean
   serviceId?: boolean
   residence?: boolean
+  deviceCount?: boolean
+  accountStatus?: boolean
   subscriptionStatus?: boolean
   joinedAt?: boolean
+  lastLoginAt?: boolean
+  lastActiveAt?: boolean
   updatedAt?: boolean
   institutionId?: boolean
   planId?: boolean
@@ -1428,16 +1742,22 @@ export type SubscriberSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type SubscriberSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
+  role?: boolean
   firstName?: boolean
   lastName?: boolean
   studentId?: boolean
   level?: boolean
   gender?: boolean
+  profilePicture?: boolean
   phone?: boolean
   serviceId?: boolean
   residence?: boolean
+  deviceCount?: boolean
+  accountStatus?: boolean
   subscriptionStatus?: boolean
   joinedAt?: boolean
+  lastLoginAt?: boolean
+  lastActiveAt?: boolean
   updatedAt?: boolean
   institutionId?: boolean
   planId?: boolean
@@ -1448,16 +1768,22 @@ export type SubscriberSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type SubscriberSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
+  role?: boolean
   firstName?: boolean
   lastName?: boolean
   studentId?: boolean
   level?: boolean
   gender?: boolean
+  profilePicture?: boolean
   phone?: boolean
   serviceId?: boolean
   residence?: boolean
+  deviceCount?: boolean
+  accountStatus?: boolean
   subscriptionStatus?: boolean
   joinedAt?: boolean
+  lastLoginAt?: boolean
+  lastActiveAt?: boolean
   updatedAt?: boolean
   institutionId?: boolean
   planId?: boolean
@@ -1468,22 +1794,28 @@ export type SubscriberSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type SubscriberSelectScalar = {
   id?: boolean
   email?: boolean
+  role?: boolean
   firstName?: boolean
   lastName?: boolean
   studentId?: boolean
   level?: boolean
   gender?: boolean
+  profilePicture?: boolean
   phone?: boolean
   serviceId?: boolean
   residence?: boolean
+  deviceCount?: boolean
+  accountStatus?: boolean
   subscriptionStatus?: boolean
   joinedAt?: boolean
+  lastLoginAt?: boolean
+  lastActiveAt?: boolean
   updatedAt?: boolean
   institutionId?: boolean
   planId?: boolean
 }
 
-export type SubscriberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "firstName" | "lastName" | "studentId" | "level" | "gender" | "phone" | "serviceId" | "residence" | "subscriptionStatus" | "joinedAt" | "updatedAt" | "institutionId" | "planId", ExtArgs["result"]["subscriber"]>
+export type SubscriberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "role" | "firstName" | "lastName" | "studentId" | "level" | "gender" | "profilePicture" | "phone" | "serviceId" | "residence" | "deviceCount" | "accountStatus" | "subscriptionStatus" | "joinedAt" | "lastLoginAt" | "lastActiveAt" | "updatedAt" | "institutionId" | "planId", ExtArgs["result"]["subscriber"]>
 export type SubscriberInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   institution?: boolean | Prisma.InstitutionDefaultArgs<ExtArgs>
   plan?: boolean | Prisma.Subscriber$planArgs<ExtArgs>
@@ -1513,16 +1845,22 @@ export type $SubscriberPayload<ExtArgs extends runtime.Types.Extensions.Internal
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     email: string
+    role: $Enums.Role
     firstName: string
     lastName: string
     studentId: string | null
     level: number | null
     gender: $Enums.Gender
+    profilePicture: string | null
     phone: string
     serviceId: string
     residence: string
+    deviceCount: number
+    accountStatus: $Enums.AccountStatus
     subscriptionStatus: $Enums.SubscriptionStatus
     joinedAt: Date
+    lastLoginAt: Date | null
+    lastActiveAt: Date | null
     updatedAt: Date
     institutionId: string
     planId: string | null
@@ -1956,16 +2294,22 @@ export interface Prisma__SubscriberClient<T, Null = never, ExtArgs extends runti
 export interface SubscriberFieldRefs {
   readonly id: Prisma.FieldRef<"Subscriber", 'String'>
   readonly email: Prisma.FieldRef<"Subscriber", 'String'>
+  readonly role: Prisma.FieldRef<"Subscriber", 'Role'>
   readonly firstName: Prisma.FieldRef<"Subscriber", 'String'>
   readonly lastName: Prisma.FieldRef<"Subscriber", 'String'>
   readonly studentId: Prisma.FieldRef<"Subscriber", 'String'>
   readonly level: Prisma.FieldRef<"Subscriber", 'Int'>
   readonly gender: Prisma.FieldRef<"Subscriber", 'Gender'>
+  readonly profilePicture: Prisma.FieldRef<"Subscriber", 'String'>
   readonly phone: Prisma.FieldRef<"Subscriber", 'String'>
   readonly serviceId: Prisma.FieldRef<"Subscriber", 'String'>
   readonly residence: Prisma.FieldRef<"Subscriber", 'String'>
+  readonly deviceCount: Prisma.FieldRef<"Subscriber", 'Int'>
+  readonly accountStatus: Prisma.FieldRef<"Subscriber", 'AccountStatus'>
   readonly subscriptionStatus: Prisma.FieldRef<"Subscriber", 'SubscriptionStatus'>
   readonly joinedAt: Prisma.FieldRef<"Subscriber", 'DateTime'>
+  readonly lastLoginAt: Prisma.FieldRef<"Subscriber", 'DateTime'>
+  readonly lastActiveAt: Prisma.FieldRef<"Subscriber", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Subscriber", 'DateTime'>
   readonly institutionId: Prisma.FieldRef<"Subscriber", 'String'>
   readonly planId: Prisma.FieldRef<"Subscriber", 'String'>

@@ -4,6 +4,7 @@ export default () => ({
     env: process.env.APP_ENV || 'appEnv',
     url: process.env.APP_URL || 'appUrl',
     port: process.env.APP_PORT || 4000,
+    adminSecretCode: process.env.ADMIN_SECRET_CODE || 'adminSecretCode',
     requestTimeout: Number(process.env.REQUEST_TIMEOUT) || 4000,
   },
   databse: {
@@ -41,6 +42,6 @@ export default () => ({
     port: process.env.BREVO_PORT,
     user: process.env.BREVO_USER,
     host: process.env.BREVO_HOST,
-    from: process.env.MAIL_FROM
+    from: process.env.MAIL_FROM,
   },
 });

@@ -1,15 +1,15 @@
 import {
+  Inject,
   Injectable,
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import {
-  Plan,
-  Subscriber,
-  SubscriptionStatus,
-} from 'prisma/generated/prisma/client';
+import { SubscriptionStatus } from 'prisma/generated/prisma/client';
 import { MailerService } from '@nestjs-modules/mailer';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
+import { SupabaseService } from 'src/supabase/supabase.service';
 
 @Injectable()
 export class HelperService {
@@ -17,7 +17,10 @@ export class HelperService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly mailerService: MailerService,
+    @Inject(CACHE_MANAGER) private cache: Cache,
+    private readonly supabase: SupabaseService,
   ) {}
+  bucketName = 'Student_Shield_Media';
 
   generateServiceId() {
     const prefix = 'SRV-';
@@ -107,5 +110,72 @@ export class HelperService {
       this.logger.error('Email sending failed', error);
       throw new InternalServerErrorException('Failed to send email');
     }
+  }
+
+  async setCache(cacheKey: string, value: any, ttl?: number) {
+    if (!cacheKey) {
+      return;
+    }
+
+    const actualTTL = ttl || 60 * 60 * 24 * 1000;
+
+    await this.cache.set(cacheKey, value, actualTTL);
+  }
+
+  async getCache(cacheKey: string) {
+    if (!cacheKey) {
+      return;
+    }
+
+    return await this.cache.get(cacheKey);
+  }
+
+  async delCache(cacheKey: string) {
+    if (!cacheKey) {
+      return;
+    }
+
+    return await this.cache.del(cacheKey);
+  }
+
+  async uploadMedia(file: Express.Multer.File, id: string) {
+    try {
+      const fileName = file.originalname;
+      const fileBuffer = file.buffer;
+      const fileMimeType = file.mimetype;
+      const newFileName = `${id}-${fileName}`;
+
+      const filePath = fileMimeType.startsWith('image/')
+        ? `images/${newFileName}`
+        : fileMimeType.startsWith('video/')
+          ? `videos/${newFileName}`
+          : `docs/${newFileName}`;
+
+      const { data, error } = await this.supabase.supabase.storage
+        .from(this.bucketName)
+        .upload(filePath, fileBuffer, {
+          contentType: fileMimeType,
+        });
+
+      if (error) {
+        throw new InternalServerErrorException('Failed to upload media', error);
+      }
+
+      const { data: publicData } = this.supabase.supabase.storage
+        .from(this.bucketName)
+        .getPublicUrl(filePath);
+
+      return {
+        url: publicData.publicUrl,
+        path: filePath,
+      };
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to upload media');
+    }
+  }
+
+  async uploadMultipleMedia(files: Express.Multer.File[], id: string) {
+    const uploadPromises = files.map((file) => this.uploadMedia(file, id));
+    return Promise.all(uploadPromises);
   }
 }

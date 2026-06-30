@@ -57,6 +57,7 @@ export const ModelName = {
   Payment: 'Payment',
   Device: 'Device',
   CustomDeviceAttribute: 'CustomDeviceAttribute',
+  Admin: 'Admin',
   ServiceRequest: 'ServiceRequest',
   Notification: 'Notification'
 } as const
@@ -80,16 +81,22 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const SubscriberScalarFieldEnum = {
   id: 'id',
   email: 'email',
+  role: 'role',
   firstName: 'firstName',
   lastName: 'lastName',
   studentId: 'studentId',
   level: 'level',
   gender: 'gender',
+  profilePicture: 'profilePicture',
   phone: 'phone',
   serviceId: 'serviceId',
   residence: 'residence',
+  deviceCount: 'deviceCount',
+  accountStatus: 'accountStatus',
   subscriptionStatus: 'subscriptionStatus',
   joinedAt: 'joinedAt',
+  lastLoginAt: 'lastLoginAt',
+  lastActiveAt: 'lastActiveAt',
   updatedAt: 'updatedAt',
   institutionId: 'institutionId',
   planId: 'planId'
@@ -102,7 +109,7 @@ export const PlanScalarFieldEnum = {
   id: 'id',
   type: 'type',
   fee: 'fee',
-  deviceLimit: 'deviceLimit',
+  maxDevices: 'maxDevices',
   summary: 'summary',
   benefits: 'benefits',
   createdAt: 'createdAt',
@@ -145,6 +152,8 @@ export const DeviceScalarFieldEnum = {
   subscriberId: 'subscriberId',
   type: 'type',
   model: 'model',
+  serialCode: 'serialCode',
+  name: 'name',
   brand: 'brand',
   os: 'os',
   media: 'media',
@@ -163,6 +172,23 @@ export const CustomDeviceAttributeScalarFieldEnum = {
 } as const
 
 export type CustomDeviceAttributeScalarFieldEnum = (typeof CustomDeviceAttributeScalarFieldEnum)[keyof typeof CustomDeviceAttributeScalarFieldEnum]
+
+
+export const AdminScalarFieldEnum = {
+  id: 'id',
+  privilege: 'privilege',
+  email: 'email',
+  serviceId: 'serviceId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  profilePicture: 'profilePicture',
+  lastLoginAt: 'lastLoginAt',
+  lastActiveAt: 'lastActiveAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
 
 
 export const ServiceRequestScalarFieldEnum = {

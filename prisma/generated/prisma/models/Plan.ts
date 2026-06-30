@@ -28,19 +28,19 @@ export type AggregatePlan = {
 
 export type PlanAvgAggregateOutputType = {
   fee: number | null
-  deviceLimit: number | null
+  maxDevices: number | null
 }
 
 export type PlanSumAggregateOutputType = {
   fee: number | null
-  deviceLimit: number | null
+  maxDevices: number | null
 }
 
 export type PlanMinAggregateOutputType = {
   id: string | null
   type: $Enums.PlanType | null
   fee: number | null
-  deviceLimit: number | null
+  maxDevices: number | null
   summary: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -50,7 +50,7 @@ export type PlanMaxAggregateOutputType = {
   id: string | null
   type: $Enums.PlanType | null
   fee: number | null
-  deviceLimit: number | null
+  maxDevices: number | null
   summary: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -60,7 +60,7 @@ export type PlanCountAggregateOutputType = {
   id: number
   type: number
   fee: number
-  deviceLimit: number
+  maxDevices: number
   summary: number
   benefits: number
   createdAt: number
@@ -71,19 +71,19 @@ export type PlanCountAggregateOutputType = {
 
 export type PlanAvgAggregateInputType = {
   fee?: true
-  deviceLimit?: true
+  maxDevices?: true
 }
 
 export type PlanSumAggregateInputType = {
   fee?: true
-  deviceLimit?: true
+  maxDevices?: true
 }
 
 export type PlanMinAggregateInputType = {
   id?: true
   type?: true
   fee?: true
-  deviceLimit?: true
+  maxDevices?: true
   summary?: true
   createdAt?: true
   updatedAt?: true
@@ -93,7 +93,7 @@ export type PlanMaxAggregateInputType = {
   id?: true
   type?: true
   fee?: true
-  deviceLimit?: true
+  maxDevices?: true
   summary?: true
   createdAt?: true
   updatedAt?: true
@@ -103,7 +103,7 @@ export type PlanCountAggregateInputType = {
   id?: true
   type?: true
   fee?: true
-  deviceLimit?: true
+  maxDevices?: true
   summary?: true
   benefits?: true
   createdAt?: true
@@ -201,7 +201,7 @@ export type PlanGroupByOutputType = {
   id: string
   type: $Enums.PlanType
   fee: number
-  deviceLimit: number
+  maxDevices: number
   summary: string
   benefits: string[]
   createdAt: Date
@@ -235,7 +235,7 @@ export type PlanWhereInput = {
   id?: Prisma.StringFilter<"Plan"> | string
   type?: Prisma.EnumPlanTypeFilter<"Plan"> | $Enums.PlanType
   fee?: Prisma.FloatFilter<"Plan"> | number
-  deviceLimit?: Prisma.IntFilter<"Plan"> | number
+  maxDevices?: Prisma.IntFilter<"Plan"> | number
   summary?: Prisma.StringFilter<"Plan"> | string
   benefits?: Prisma.StringNullableListFilter<"Plan">
   createdAt?: Prisma.DateTimeFilter<"Plan"> | Date | string
@@ -247,7 +247,7 @@ export type PlanOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   fee?: Prisma.SortOrder
-  deviceLimit?: Prisma.SortOrder
+  maxDevices?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   benefits?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -262,7 +262,7 @@ export type PlanWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.PlanWhereInput[]
   NOT?: Prisma.PlanWhereInput | Prisma.PlanWhereInput[]
   fee?: Prisma.FloatFilter<"Plan"> | number
-  deviceLimit?: Prisma.IntFilter<"Plan"> | number
+  maxDevices?: Prisma.IntFilter<"Plan"> | number
   summary?: Prisma.StringFilter<"Plan"> | string
   benefits?: Prisma.StringNullableListFilter<"Plan">
   createdAt?: Prisma.DateTimeFilter<"Plan"> | Date | string
@@ -274,7 +274,7 @@ export type PlanOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   fee?: Prisma.SortOrder
-  deviceLimit?: Prisma.SortOrder
+  maxDevices?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   benefits?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -293,7 +293,7 @@ export type PlanScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Plan"> | string
   type?: Prisma.EnumPlanTypeWithAggregatesFilter<"Plan"> | $Enums.PlanType
   fee?: Prisma.FloatWithAggregatesFilter<"Plan"> | number
-  deviceLimit?: Prisma.IntWithAggregatesFilter<"Plan"> | number
+  maxDevices?: Prisma.IntWithAggregatesFilter<"Plan"> | number
   summary?: Prisma.StringWithAggregatesFilter<"Plan"> | string
   benefits?: Prisma.StringNullableListFilter<"Plan">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Plan"> | Date | string
@@ -304,7 +304,7 @@ export type PlanCreateInput = {
   id?: string
   type: $Enums.PlanType
   fee: number
-  deviceLimit: number
+  maxDevices: number
   summary: string
   benefits?: Prisma.PlanCreatebenefitsInput | string[]
   createdAt?: Date | string
@@ -316,7 +316,7 @@ export type PlanUncheckedCreateInput = {
   id?: string
   type: $Enums.PlanType
   fee: number
-  deviceLimit: number
+  maxDevices: number
   summary: string
   benefits?: Prisma.PlanCreatebenefitsInput | string[]
   createdAt?: Date | string
@@ -328,7 +328,7 @@ export type PlanUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
-  deviceLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  maxDevices?: Prisma.IntFieldUpdateOperationsInput | number
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   benefits?: Prisma.PlanUpdatebenefitsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -340,7 +340,7 @@ export type PlanUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
-  deviceLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  maxDevices?: Prisma.IntFieldUpdateOperationsInput | number
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   benefits?: Prisma.PlanUpdatebenefitsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -352,7 +352,7 @@ export type PlanCreateManyInput = {
   id?: string
   type: $Enums.PlanType
   fee: number
-  deviceLimit: number
+  maxDevices: number
   summary: string
   benefits?: Prisma.PlanCreatebenefitsInput | string[]
   createdAt?: Date | string
@@ -363,7 +363,7 @@ export type PlanUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
-  deviceLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  maxDevices?: Prisma.IntFieldUpdateOperationsInput | number
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   benefits?: Prisma.PlanUpdatebenefitsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -374,7 +374,7 @@ export type PlanUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
-  deviceLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  maxDevices?: Prisma.IntFieldUpdateOperationsInput | number
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   benefits?: Prisma.PlanUpdatebenefitsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -398,7 +398,7 @@ export type PlanCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   fee?: Prisma.SortOrder
-  deviceLimit?: Prisma.SortOrder
+  maxDevices?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   benefits?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -407,14 +407,14 @@ export type PlanCountOrderByAggregateInput = {
 
 export type PlanAvgOrderByAggregateInput = {
   fee?: Prisma.SortOrder
-  deviceLimit?: Prisma.SortOrder
+  maxDevices?: Prisma.SortOrder
 }
 
 export type PlanMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   fee?: Prisma.SortOrder
-  deviceLimit?: Prisma.SortOrder
+  maxDevices?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -424,7 +424,7 @@ export type PlanMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   fee?: Prisma.SortOrder
-  deviceLimit?: Prisma.SortOrder
+  maxDevices?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -432,7 +432,7 @@ export type PlanMinOrderByAggregateInput = {
 
 export type PlanSumOrderByAggregateInput = {
   fee?: Prisma.SortOrder
-  deviceLimit?: Prisma.SortOrder
+  maxDevices?: Prisma.SortOrder
 }
 
 export type PlanCreateNestedOneWithoutSubscribersInput = {
@@ -467,14 +467,6 @@ export type FloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type PlanUpdatebenefitsInput = {
   set?: string[]
   push?: string | string[]
@@ -484,7 +476,7 @@ export type PlanCreateWithoutSubscribersInput = {
   id?: string
   type: $Enums.PlanType
   fee: number
-  deviceLimit: number
+  maxDevices: number
   summary: string
   benefits?: Prisma.PlanCreatebenefitsInput | string[]
   createdAt?: Date | string
@@ -495,7 +487,7 @@ export type PlanUncheckedCreateWithoutSubscribersInput = {
   id?: string
   type: $Enums.PlanType
   fee: number
-  deviceLimit: number
+  maxDevices: number
   summary: string
   benefits?: Prisma.PlanCreatebenefitsInput | string[]
   createdAt?: Date | string
@@ -522,7 +514,7 @@ export type PlanUpdateWithoutSubscribersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
-  deviceLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  maxDevices?: Prisma.IntFieldUpdateOperationsInput | number
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   benefits?: Prisma.PlanUpdatebenefitsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -533,7 +525,7 @@ export type PlanUncheckedUpdateWithoutSubscribersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
-  deviceLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  maxDevices?: Prisma.IntFieldUpdateOperationsInput | number
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   benefits?: Prisma.PlanUpdatebenefitsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -575,7 +567,7 @@ export type PlanSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   type?: boolean
   fee?: boolean
-  deviceLimit?: boolean
+  maxDevices?: boolean
   summary?: boolean
   benefits?: boolean
   createdAt?: boolean
@@ -588,7 +580,7 @@ export type PlanSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   type?: boolean
   fee?: boolean
-  deviceLimit?: boolean
+  maxDevices?: boolean
   summary?: boolean
   benefits?: boolean
   createdAt?: boolean
@@ -599,7 +591,7 @@ export type PlanSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   type?: boolean
   fee?: boolean
-  deviceLimit?: boolean
+  maxDevices?: boolean
   summary?: boolean
   benefits?: boolean
   createdAt?: boolean
@@ -610,14 +602,14 @@ export type PlanSelectScalar = {
   id?: boolean
   type?: boolean
   fee?: boolean
-  deviceLimit?: boolean
+  maxDevices?: boolean
   summary?: boolean
   benefits?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "fee" | "deviceLimit" | "summary" | "benefits" | "createdAt" | "updatedAt", ExtArgs["result"]["plan"]>
+export type PlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "fee" | "maxDevices" | "summary" | "benefits" | "createdAt" | "updatedAt", ExtArgs["result"]["plan"]>
 export type PlanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscribers?: boolean | Prisma.Plan$subscribersArgs<ExtArgs>
   _count?: boolean | Prisma.PlanCountOutputTypeDefaultArgs<ExtArgs>
@@ -634,7 +626,7 @@ export type $PlanPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: string
     type: $Enums.PlanType
     fee: number
-    deviceLimit: number
+    maxDevices: number
     summary: string
     benefits: string[]
     createdAt: Date
@@ -1066,7 +1058,7 @@ export interface PlanFieldRefs {
   readonly id: Prisma.FieldRef<"Plan", 'String'>
   readonly type: Prisma.FieldRef<"Plan", 'PlanType'>
   readonly fee: Prisma.FieldRef<"Plan", 'Float'>
-  readonly deviceLimit: Prisma.FieldRef<"Plan", 'Int'>
+  readonly maxDevices: Prisma.FieldRef<"Plan", 'Int'>
   readonly summary: Prisma.FieldRef<"Plan", 'String'>
   readonly benefits: Prisma.FieldRef<"Plan", 'String[]'>
   readonly createdAt: Prisma.FieldRef<"Plan", 'DateTime'>

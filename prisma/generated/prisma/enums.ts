@@ -31,6 +31,16 @@ export const ServiceRequestStatus = {
 export type ServiceRequestStatus = (typeof ServiceRequestStatus)[keyof typeof ServiceRequestStatus]
 
 
+export const PaymentType = {
+  RENEWAL: 'RENEWAL',
+  UPGRADE: 'UPGRADE',
+  DOWNGRADE: 'DOWNGRADE',
+  NEW: 'NEW'
+} as const
+
+export type PaymentType = (typeof PaymentType)[keyof typeof PaymentType]
+
+
 export const PaymentMethod = {
   MOBILE_MONEY: 'MOBILE_MONEY',
   CARD: 'CARD',

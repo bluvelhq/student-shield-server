@@ -50,6 +50,7 @@ export type ServiceRequestMinAggregateOutputType = {
   preferHosting: boolean | null
   receipt: string | null
   remarks: string | null
+  qrCode: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -70,6 +71,7 @@ export type ServiceRequestMaxAggregateOutputType = {
   preferHosting: boolean | null
   receipt: string | null
   remarks: string | null
+  qrCode: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -90,6 +92,7 @@ export type ServiceRequestCountAggregateOutputType = {
   preferHosting: number
   receipt: number
   remarks: number
+  qrCode: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -120,6 +123,7 @@ export type ServiceRequestMinAggregateInputType = {
   preferHosting?: true
   receipt?: true
   remarks?: true
+  qrCode?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -140,6 +144,7 @@ export type ServiceRequestMaxAggregateInputType = {
   preferHosting?: true
   receipt?: true
   remarks?: true
+  qrCode?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -160,6 +165,7 @@ export type ServiceRequestCountAggregateInputType = {
   preferHosting?: true
   receipt?: true
   remarks?: true
+  qrCode?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -265,8 +271,9 @@ export type ServiceRequestGroupByOutputType = {
   websiteConceptDescription: string | null
   websitePageCount: number | null
   preferHosting: boolean
-  receipt: string
+  receipt: string | null
   remarks: string | null
+  qrCode: string | null
   createdAt: Date
   updatedAt: Date
   _count: ServiceRequestCountAggregateOutputType | null
@@ -308,8 +315,9 @@ export type ServiceRequestWhereInput = {
   websiteConceptDescription?: Prisma.StringNullableFilter<"ServiceRequest"> | string | null
   websitePageCount?: Prisma.IntNullableFilter<"ServiceRequest"> | number | null
   preferHosting?: Prisma.BoolFilter<"ServiceRequest"> | boolean
-  receipt?: Prisma.StringFilter<"ServiceRequest"> | string
+  receipt?: Prisma.StringNullableFilter<"ServiceRequest"> | string | null
   remarks?: Prisma.StringNullableFilter<"ServiceRequest"> | string | null
+  qrCode?: Prisma.StringNullableFilter<"ServiceRequest"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ServiceRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ServiceRequest"> | Date | string
   subscriber?: Prisma.XOR<Prisma.SubscriberScalarRelationFilter, Prisma.SubscriberWhereInput>
@@ -330,8 +338,9 @@ export type ServiceRequestOrderByWithRelationInput = {
   websiteConceptDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   websitePageCount?: Prisma.SortOrderInput | Prisma.SortOrder
   preferHosting?: Prisma.SortOrder
-  receipt?: Prisma.SortOrder
+  receipt?: Prisma.SortOrderInput | Prisma.SortOrder
   remarks?: Prisma.SortOrderInput | Prisma.SortOrder
+  qrCode?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   subscriber?: Prisma.SubscriberOrderByWithRelationInput
@@ -355,8 +364,9 @@ export type ServiceRequestWhereUniqueInput = Prisma.AtLeast<{
   websiteConceptDescription?: Prisma.StringNullableFilter<"ServiceRequest"> | string | null
   websitePageCount?: Prisma.IntNullableFilter<"ServiceRequest"> | number | null
   preferHosting?: Prisma.BoolFilter<"ServiceRequest"> | boolean
-  receipt?: Prisma.StringFilter<"ServiceRequest"> | string
+  receipt?: Prisma.StringNullableFilter<"ServiceRequest"> | string | null
   remarks?: Prisma.StringNullableFilter<"ServiceRequest"> | string | null
+  qrCode?: Prisma.StringNullableFilter<"ServiceRequest"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ServiceRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ServiceRequest"> | Date | string
   subscriber?: Prisma.XOR<Prisma.SubscriberScalarRelationFilter, Prisma.SubscriberWhereInput>
@@ -377,8 +387,9 @@ export type ServiceRequestOrderByWithAggregationInput = {
   websiteConceptDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   websitePageCount?: Prisma.SortOrderInput | Prisma.SortOrder
   preferHosting?: Prisma.SortOrder
-  receipt?: Prisma.SortOrder
+  receipt?: Prisma.SortOrderInput | Prisma.SortOrder
   remarks?: Prisma.SortOrderInput | Prisma.SortOrder
+  qrCode?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ServiceRequestCountOrderByAggregateInput
@@ -405,8 +416,9 @@ export type ServiceRequestScalarWhereWithAggregatesInput = {
   websiteConceptDescription?: Prisma.StringNullableWithAggregatesFilter<"ServiceRequest"> | string | null
   websitePageCount?: Prisma.IntNullableWithAggregatesFilter<"ServiceRequest"> | number | null
   preferHosting?: Prisma.BoolWithAggregatesFilter<"ServiceRequest"> | boolean
-  receipt?: Prisma.StringWithAggregatesFilter<"ServiceRequest"> | string
+  receipt?: Prisma.StringNullableWithAggregatesFilter<"ServiceRequest"> | string | null
   remarks?: Prisma.StringNullableWithAggregatesFilter<"ServiceRequest"> | string | null
+  qrCode?: Prisma.StringNullableWithAggregatesFilter<"ServiceRequest"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ServiceRequest"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ServiceRequest"> | Date | string
 }
@@ -423,8 +435,9 @@ export type ServiceRequestCreateInput = {
   websiteConceptDescription?: string | null
   websitePageCount?: number | null
   preferHosting?: boolean
-  receipt: string
+  receipt?: string | null
   remarks?: string | null
+  qrCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   subscriber: Prisma.SubscriberCreateNestedOneWithoutServiceRequestsInput
@@ -445,8 +458,9 @@ export type ServiceRequestUncheckedCreateInput = {
   websiteConceptDescription?: string | null
   websitePageCount?: number | null
   preferHosting?: boolean
-  receipt: string
+  receipt?: string | null
   remarks?: string | null
+  qrCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -463,8 +477,9 @@ export type ServiceRequestUpdateInput = {
   websiteConceptDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   websitePageCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   preferHosting?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  receipt?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriber?: Prisma.SubscriberUpdateOneRequiredWithoutServiceRequestsNestedInput
@@ -485,8 +500,9 @@ export type ServiceRequestUncheckedUpdateInput = {
   websiteConceptDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   websitePageCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   preferHosting?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  receipt?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -505,8 +521,9 @@ export type ServiceRequestCreateManyInput = {
   websiteConceptDescription?: string | null
   websitePageCount?: number | null
   preferHosting?: boolean
-  receipt: string
+  receipt?: string | null
   remarks?: string | null
+  qrCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -523,8 +540,9 @@ export type ServiceRequestUpdateManyMutationInput = {
   websiteConceptDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   websitePageCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   preferHosting?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  receipt?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -543,8 +561,9 @@ export type ServiceRequestUncheckedUpdateManyInput = {
   websiteConceptDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   websitePageCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   preferHosting?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  receipt?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -575,6 +594,7 @@ export type ServiceRequestCountOrderByAggregateInput = {
   preferHosting?: Prisma.SortOrder
   receipt?: Prisma.SortOrder
   remarks?: Prisma.SortOrder
+  qrCode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -599,6 +619,7 @@ export type ServiceRequestMaxOrderByAggregateInput = {
   preferHosting?: Prisma.SortOrder
   receipt?: Prisma.SortOrder
   remarks?: Prisma.SortOrder
+  qrCode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -619,6 +640,7 @@ export type ServiceRequestMinOrderByAggregateInput = {
   preferHosting?: Prisma.SortOrder
   receipt?: Prisma.SortOrder
   remarks?: Prisma.SortOrder
+  qrCode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -735,8 +757,9 @@ export type ServiceRequestCreateWithoutSubscriberInput = {
   websiteConceptDescription?: string | null
   websitePageCount?: number | null
   preferHosting?: boolean
-  receipt: string
+  receipt?: string | null
   remarks?: string | null
+  qrCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   device?: Prisma.DeviceCreateNestedOneWithoutServiceRequestsInput
@@ -755,8 +778,9 @@ export type ServiceRequestUncheckedCreateWithoutSubscriberInput = {
   websiteConceptDescription?: string | null
   websitePageCount?: number | null
   preferHosting?: boolean
-  receipt: string
+  receipt?: string | null
   remarks?: string | null
+  qrCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -804,8 +828,9 @@ export type ServiceRequestScalarWhereInput = {
   websiteConceptDescription?: Prisma.StringNullableFilter<"ServiceRequest"> | string | null
   websitePageCount?: Prisma.IntNullableFilter<"ServiceRequest"> | number | null
   preferHosting?: Prisma.BoolFilter<"ServiceRequest"> | boolean
-  receipt?: Prisma.StringFilter<"ServiceRequest"> | string
+  receipt?: Prisma.StringNullableFilter<"ServiceRequest"> | string | null
   remarks?: Prisma.StringNullableFilter<"ServiceRequest"> | string | null
+  qrCode?: Prisma.StringNullableFilter<"ServiceRequest"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ServiceRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ServiceRequest"> | Date | string
 }
@@ -822,8 +847,9 @@ export type ServiceRequestCreateWithoutDeviceInput = {
   websiteConceptDescription?: string | null
   websitePageCount?: number | null
   preferHosting?: boolean
-  receipt: string
+  receipt?: string | null
   remarks?: string | null
+  qrCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   subscriber: Prisma.SubscriberCreateNestedOneWithoutServiceRequestsInput
@@ -842,8 +868,9 @@ export type ServiceRequestUncheckedCreateWithoutDeviceInput = {
   websiteConceptDescription?: string | null
   websitePageCount?: number | null
   preferHosting?: boolean
-  receipt: string
+  receipt?: string | null
   remarks?: string | null
+  qrCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -887,8 +914,9 @@ export type ServiceRequestCreateManySubscriberInput = {
   websiteConceptDescription?: string | null
   websitePageCount?: number | null
   preferHosting?: boolean
-  receipt: string
+  receipt?: string | null
   remarks?: string | null
+  qrCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -905,8 +933,9 @@ export type ServiceRequestUpdateWithoutSubscriberInput = {
   websiteConceptDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   websitePageCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   preferHosting?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  receipt?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   device?: Prisma.DeviceUpdateOneWithoutServiceRequestsNestedInput
@@ -925,8 +954,9 @@ export type ServiceRequestUncheckedUpdateWithoutSubscriberInput = {
   websiteConceptDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   websitePageCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   preferHosting?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  receipt?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -944,8 +974,9 @@ export type ServiceRequestUncheckedUpdateManyWithoutSubscriberInput = {
   websiteConceptDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   websitePageCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   preferHosting?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  receipt?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -963,8 +994,9 @@ export type ServiceRequestCreateManyDeviceInput = {
   websiteConceptDescription?: string | null
   websitePageCount?: number | null
   preferHosting?: boolean
-  receipt: string
+  receipt?: string | null
   remarks?: string | null
+  qrCode?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -981,8 +1013,9 @@ export type ServiceRequestUpdateWithoutDeviceInput = {
   websiteConceptDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   websitePageCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   preferHosting?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  receipt?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriber?: Prisma.SubscriberUpdateOneRequiredWithoutServiceRequestsNestedInput
@@ -1001,8 +1034,9 @@ export type ServiceRequestUncheckedUpdateWithoutDeviceInput = {
   websiteConceptDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   websitePageCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   preferHosting?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  receipt?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1020,8 +1054,9 @@ export type ServiceRequestUncheckedUpdateManyWithoutDeviceInput = {
   websiteConceptDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   websitePageCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   preferHosting?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  receipt?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1044,6 +1079,7 @@ export type ServiceRequestSelect<ExtArgs extends runtime.Types.Extensions.Intern
   preferHosting?: boolean
   receipt?: boolean
   remarks?: boolean
+  qrCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   subscriber?: boolean | Prisma.SubscriberDefaultArgs<ExtArgs>
@@ -1066,6 +1102,7 @@ export type ServiceRequestSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   preferHosting?: boolean
   receipt?: boolean
   remarks?: boolean
+  qrCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   subscriber?: boolean | Prisma.SubscriberDefaultArgs<ExtArgs>
@@ -1088,6 +1125,7 @@ export type ServiceRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   preferHosting?: boolean
   receipt?: boolean
   remarks?: boolean
+  qrCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   subscriber?: boolean | Prisma.SubscriberDefaultArgs<ExtArgs>
@@ -1110,11 +1148,12 @@ export type ServiceRequestSelectScalar = {
   preferHosting?: boolean
   receipt?: boolean
   remarks?: boolean
+  qrCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ServiceRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "subscriberId" | "deviceId" | "type" | "title" | "description" | "urgency" | "status" | "businessName" | "desiredSubdomain" | "websiteConceptDescription" | "websitePageCount" | "preferHosting" | "receipt" | "remarks" | "createdAt" | "updatedAt", ExtArgs["result"]["serviceRequest"]>
+export type ServiceRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "subscriberId" | "deviceId" | "type" | "title" | "description" | "urgency" | "status" | "businessName" | "desiredSubdomain" | "websiteConceptDescription" | "websitePageCount" | "preferHosting" | "receipt" | "remarks" | "qrCode" | "createdAt" | "updatedAt", ExtArgs["result"]["serviceRequest"]>
 export type ServiceRequestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscriber?: boolean | Prisma.SubscriberDefaultArgs<ExtArgs>
   device?: boolean | Prisma.ServiceRequest$deviceArgs<ExtArgs>
@@ -1148,8 +1187,9 @@ export type $ServiceRequestPayload<ExtArgs extends runtime.Types.Extensions.Inte
     websiteConceptDescription: string | null
     websitePageCount: number | null
     preferHosting: boolean
-    receipt: string
+    receipt: string | null
     remarks: string | null
+    qrCode: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["serviceRequest"]>
@@ -1592,6 +1632,7 @@ export interface ServiceRequestFieldRefs {
   readonly preferHosting: Prisma.FieldRef<"ServiceRequest", 'Boolean'>
   readonly receipt: Prisma.FieldRef<"ServiceRequest", 'String'>
   readonly remarks: Prisma.FieldRef<"ServiceRequest", 'String'>
+  readonly qrCode: Prisma.FieldRef<"ServiceRequest", 'String'>
   readonly createdAt: Prisma.FieldRef<"ServiceRequest", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ServiceRequest", 'DateTime'>
 }

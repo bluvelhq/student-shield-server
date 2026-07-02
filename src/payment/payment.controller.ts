@@ -1,4 +1,13 @@
-import { Controller, Post, Req, Res } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  NotFoundException,
+  Post,
+  Query,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Request, Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import * as crypto from 'crypto';
@@ -6,12 +15,27 @@ import { PrismaService } from 'src/prisma.service';
 import { PlanService } from 'src/plan/plan.service';
 import { HelperService } from 'src/helpers/helpers.service';
 import { PaymentService } from './payment.service';
-import { PaymentStatus } from 'prisma/generated/prisma/enums';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import {
+  PaymentMethod,
+  PaymentStatus,
+  PaymentType,
+  SubscriptionStatus,
+} from 'prisma/generated/prisma/enums';
+
+interface AuthenticatedRequest extends Request {
+  user: {
+    id: string;
+    serviceId: string;
+    role: string;
+  };
+}
 
 type PaystackWebhookPayload = {
   event?: string;
   data?: {
     reference?: string;
+    channel?: string;
     customer?: {
       email?: string;
     };
@@ -78,7 +102,29 @@ export class PaymentController {
         return res.status(200).send('ok');
       }
 
-      await this.plan.subscribeToPlan(payload.data?.customer?.email || '');
+      let planIdToConnect = subscriber.subscriber.planId || '';
+
+      if (payment.type === PaymentType.UPGRADE && payment.planId) {
+        planIdToConnect = payment.planId;
+        await this.prisma.subscriber.update({
+          where: {
+            id: subscriber.subscriber.id,
+          },
+          data: {
+            planId: payment.planId,
+            subscriptionStatus: SubscriptionStatus.ACTIVE,
+          },
+        });
+      } else {
+        await this.prisma.subscriber.update({
+          where: {
+            id: subscriber.subscriber.id,
+          },
+          data: {
+            subscriptionStatus: SubscriptionStatus.ACTIVE,
+          },
+        });
+      }
 
       await this.prisma.payment.update({
         where: {
@@ -86,8 +132,57 @@ export class PaymentController {
         },
         data: {
           status: PaymentStatus.SUCCESSFUL,
+          method: payload.data?.channel?.toUpperCase() as PaymentMethod,
+          plan: {
+            connect: {
+              id: planIdToConnect,
+            },
+          },
         },
       });
+
+      if (payment.type === PaymentType.NEW) {
+        await this.helper.sendEmail(
+          subscriber.subscriber.email,
+          'Welcome to Student Shield!',
+          'welcome',
+          {
+            firstName: subscriber.subscriber.firstName,
+            serviceId: subscriber.subscriber.serviceId,
+            currentYear: new Date().getFullYear(),
+          },
+        );
+      } else if (payment.type === PaymentType.RENEWAL) {
+        await this.helper.sendEmail(
+          subscriber.subscriber.email,
+          'Subscription Renewed - Student Shield',
+          'renewal-message',
+          {
+            firstName: subscriber.subscriber.firstName,
+            planName: subscriber.subscriber.plan?.type || 'Standard',
+            amount: payment.amount,
+            reference: payment.reference,
+            currentYear: new Date().getFullYear(),
+          },
+        );
+      } else if (payment.type === PaymentType.UPGRADE) {
+        const upgradedPlan = await this.prisma.plan.findUnique({
+          where: { id: planIdToConnect },
+        });
+
+        await this.helper.sendEmail(
+          subscriber.subscriber.email,
+          'Plan Upgraded - Student Shield',
+          'upgrade-message',
+          {
+            firstName: subscriber.subscriber.firstName,
+            planName: upgradedPlan?.type || 'Premium',
+            amount: payment.amount,
+            reference: payment.reference,
+            currentYear: new Date().getFullYear(),
+          },
+        );
+      }
 
       return res.status(200).send('ok');
     }
@@ -134,5 +229,36 @@ export class PaymentController {
 
       return res.status(200).send('ok');
     }
+  }
+
+  @Post('retry-checkout')
+  @UseGuards(JwtAuthGuard)
+  async retryCheckout(
+    @Req() req: AuthenticatedRequest,
+    @Query('reference') reference: string,
+    @Query('amount') amount: number,
+  ) {
+    const subscriber = await this.prisma.subscriber.findUnique({
+      where: { id: req.user.id },
+    });
+
+    if (!subscriber) throw new NotFoundException('Subscriber not found');
+
+    const checkoutUrl = await this.payment.generateRetryCheckoutUrl(
+      subscriber.email,
+      Number(amount),
+      reference,
+    );
+
+    return {
+      message: 'Retry checkout URL generated successfully',
+      checkoutUrl,
+    };
+  }
+
+  @Get('history')
+  @UseGuards(JwtAuthGuard)
+  async fetchSubscriberPaymentRecords(@Req() req: AuthenticatedRequest) {
+    return this.payment.fetchSubscriberPaymentRecords(req.user.id);
   }
 }

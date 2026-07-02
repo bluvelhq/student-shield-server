@@ -353,6 +353,7 @@ export type SubscriberWhereInput = {
   payments?: Prisma.PaymentListRelationFilter
   devices?: Prisma.DeviceListRelationFilter
   serviceRequests?: Prisma.ServiceRequestListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }
 
 export type SubscriberOrderByWithRelationInput = {
@@ -382,6 +383,7 @@ export type SubscriberOrderByWithRelationInput = {
   payments?: Prisma.PaymentOrderByRelationAggregateInput
   devices?: Prisma.DeviceOrderByRelationAggregateInput
   serviceRequests?: Prisma.ServiceRequestOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
 }
 
 export type SubscriberWhereUniqueInput = Prisma.AtLeast<{
@@ -414,6 +416,7 @@ export type SubscriberWhereUniqueInput = Prisma.AtLeast<{
   payments?: Prisma.PaymentListRelationFilter
   devices?: Prisma.DeviceListRelationFilter
   serviceRequests?: Prisma.ServiceRequestListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }, "id" | "email" | "studentId" | "phone" | "serviceId">
 
 export type SubscriberOrderByWithAggregationInput = {
@@ -497,6 +500,7 @@ export type SubscriberCreateInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutSubscriberInput
   devices?: Prisma.DeviceCreateNestedManyWithoutSubscriberInput
   serviceRequests?: Prisma.ServiceRequestCreateNestedManyWithoutSubscriberInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutSubscriberInput
 }
 
 export type SubscriberUncheckedCreateInput = {
@@ -524,6 +528,7 @@ export type SubscriberUncheckedCreateInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSubscriberInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutSubscriberInput
   serviceRequests?: Prisma.ServiceRequestUncheckedCreateNestedManyWithoutSubscriberInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutSubscriberInput
 }
 
 export type SubscriberUpdateInput = {
@@ -551,6 +556,7 @@ export type SubscriberUpdateInput = {
   payments?: Prisma.PaymentUpdateManyWithoutSubscriberNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutSubscriberNestedInput
   serviceRequests?: Prisma.ServiceRequestUpdateManyWithoutSubscriberNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutSubscriberNestedInput
 }
 
 export type SubscriberUncheckedUpdateInput = {
@@ -578,6 +584,7 @@ export type SubscriberUncheckedUpdateInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutSubscriberNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutSubscriberNestedInput
   serviceRequests?: Prisma.ServiceRequestUncheckedUpdateManyWithoutSubscriberNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutSubscriberNestedInput
 }
 
 export type SubscriberCreateManyInput = {
@@ -745,6 +752,11 @@ export type SubscriberOrderByRelationAggregateInput = {
 export type SubscriberScalarRelationFilter = {
   is?: Prisma.SubscriberWhereInput
   isNot?: Prisma.SubscriberWhereInput
+}
+
+export type SubscriberNullableScalarRelationFilter = {
+  is?: Prisma.SubscriberWhereInput | null
+  isNot?: Prisma.SubscriberWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -921,6 +933,22 @@ export type SubscriberUpdateOneRequiredWithoutServiceRequestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SubscriberUpdateToOneWithWhereWithoutServiceRequestsInput, Prisma.SubscriberUpdateWithoutServiceRequestsInput>, Prisma.SubscriberUncheckedUpdateWithoutServiceRequestsInput>
 }
 
+export type SubscriberCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.SubscriberCreateWithoutNotificationsInput, Prisma.SubscriberUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.SubscriberCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.SubscriberWhereUniqueInput
+}
+
+export type SubscriberUpdateOneWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.SubscriberCreateWithoutNotificationsInput, Prisma.SubscriberUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.SubscriberCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.SubscriberUpsertWithoutNotificationsInput
+  disconnect?: Prisma.SubscriberWhereInput | boolean
+  delete?: Prisma.SubscriberWhereInput | boolean
+  connect?: Prisma.SubscriberWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SubscriberUpdateToOneWithWhereWithoutNotificationsInput, Prisma.SubscriberUpdateWithoutNotificationsInput>, Prisma.SubscriberUncheckedUpdateWithoutNotificationsInput>
+}
+
 export type SubscriberCreateWithoutPlanInput = {
   id?: string
   email: string
@@ -945,6 +973,7 @@ export type SubscriberCreateWithoutPlanInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutSubscriberInput
   devices?: Prisma.DeviceCreateNestedManyWithoutSubscriberInput
   serviceRequests?: Prisma.ServiceRequestCreateNestedManyWithoutSubscriberInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutSubscriberInput
 }
 
 export type SubscriberUncheckedCreateWithoutPlanInput = {
@@ -971,6 +1000,7 @@ export type SubscriberUncheckedCreateWithoutPlanInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSubscriberInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutSubscriberInput
   serviceRequests?: Prisma.ServiceRequestUncheckedCreateNestedManyWithoutSubscriberInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutSubscriberInput
 }
 
 export type SubscriberCreateOrConnectWithoutPlanInput = {
@@ -1050,6 +1080,7 @@ export type SubscriberCreateWithoutInstitutionInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutSubscriberInput
   devices?: Prisma.DeviceCreateNestedManyWithoutSubscriberInput
   serviceRequests?: Prisma.ServiceRequestCreateNestedManyWithoutSubscriberInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutSubscriberInput
 }
 
 export type SubscriberUncheckedCreateWithoutInstitutionInput = {
@@ -1076,6 +1107,7 @@ export type SubscriberUncheckedCreateWithoutInstitutionInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSubscriberInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutSubscriberInput
   serviceRequests?: Prisma.ServiceRequestUncheckedCreateNestedManyWithoutSubscriberInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutSubscriberInput
 }
 
 export type SubscriberCreateOrConnectWithoutInstitutionInput = {
@@ -1128,6 +1160,7 @@ export type SubscriberCreateWithoutPaymentsInput = {
   plan?: Prisma.PlanCreateNestedOneWithoutSubscribersInput
   devices?: Prisma.DeviceCreateNestedManyWithoutSubscriberInput
   serviceRequests?: Prisma.ServiceRequestCreateNestedManyWithoutSubscriberInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutSubscriberInput
 }
 
 export type SubscriberUncheckedCreateWithoutPaymentsInput = {
@@ -1154,6 +1187,7 @@ export type SubscriberUncheckedCreateWithoutPaymentsInput = {
   planId?: string | null
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutSubscriberInput
   serviceRequests?: Prisma.ServiceRequestUncheckedCreateNestedManyWithoutSubscriberInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutSubscriberInput
 }
 
 export type SubscriberCreateOrConnectWithoutPaymentsInput = {
@@ -1196,6 +1230,7 @@ export type SubscriberUpdateWithoutPaymentsInput = {
   plan?: Prisma.PlanUpdateOneWithoutSubscribersNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutSubscriberNestedInput
   serviceRequests?: Prisma.ServiceRequestUpdateManyWithoutSubscriberNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutSubscriberNestedInput
 }
 
 export type SubscriberUncheckedUpdateWithoutPaymentsInput = {
@@ -1222,6 +1257,7 @@ export type SubscriberUncheckedUpdateWithoutPaymentsInput = {
   planId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutSubscriberNestedInput
   serviceRequests?: Prisma.ServiceRequestUncheckedUpdateManyWithoutSubscriberNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutSubscriberNestedInput
 }
 
 export type SubscriberCreateWithoutDevicesInput = {
@@ -1248,6 +1284,7 @@ export type SubscriberCreateWithoutDevicesInput = {
   plan?: Prisma.PlanCreateNestedOneWithoutSubscribersInput
   payments?: Prisma.PaymentCreateNestedManyWithoutSubscriberInput
   serviceRequests?: Prisma.ServiceRequestCreateNestedManyWithoutSubscriberInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutSubscriberInput
 }
 
 export type SubscriberUncheckedCreateWithoutDevicesInput = {
@@ -1274,6 +1311,7 @@ export type SubscriberUncheckedCreateWithoutDevicesInput = {
   planId?: string | null
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSubscriberInput
   serviceRequests?: Prisma.ServiceRequestUncheckedCreateNestedManyWithoutSubscriberInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutSubscriberInput
 }
 
 export type SubscriberCreateOrConnectWithoutDevicesInput = {
@@ -1316,6 +1354,7 @@ export type SubscriberUpdateWithoutDevicesInput = {
   plan?: Prisma.PlanUpdateOneWithoutSubscribersNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutSubscriberNestedInput
   serviceRequests?: Prisma.ServiceRequestUpdateManyWithoutSubscriberNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutSubscriberNestedInput
 }
 
 export type SubscriberUncheckedUpdateWithoutDevicesInput = {
@@ -1342,6 +1381,7 @@ export type SubscriberUncheckedUpdateWithoutDevicesInput = {
   planId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutSubscriberNestedInput
   serviceRequests?: Prisma.ServiceRequestUncheckedUpdateManyWithoutSubscriberNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutSubscriberNestedInput
 }
 
 export type SubscriberCreateWithoutServiceRequestsInput = {
@@ -1368,6 +1408,7 @@ export type SubscriberCreateWithoutServiceRequestsInput = {
   plan?: Prisma.PlanCreateNestedOneWithoutSubscribersInput
   payments?: Prisma.PaymentCreateNestedManyWithoutSubscriberInput
   devices?: Prisma.DeviceCreateNestedManyWithoutSubscriberInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutSubscriberInput
 }
 
 export type SubscriberUncheckedCreateWithoutServiceRequestsInput = {
@@ -1394,6 +1435,7 @@ export type SubscriberUncheckedCreateWithoutServiceRequestsInput = {
   planId?: string | null
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSubscriberInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutSubscriberInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutSubscriberInput
 }
 
 export type SubscriberCreateOrConnectWithoutServiceRequestsInput = {
@@ -1436,6 +1478,7 @@ export type SubscriberUpdateWithoutServiceRequestsInput = {
   plan?: Prisma.PlanUpdateOneWithoutSubscribersNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutSubscriberNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutSubscriberNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutSubscriberNestedInput
 }
 
 export type SubscriberUncheckedUpdateWithoutServiceRequestsInput = {
@@ -1462,6 +1505,131 @@ export type SubscriberUncheckedUpdateWithoutServiceRequestsInput = {
   planId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutSubscriberNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutSubscriberNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutSubscriberNestedInput
+}
+
+export type SubscriberCreateWithoutNotificationsInput = {
+  id?: string
+  email: string
+  role: $Enums.Role
+  firstName: string
+  lastName: string
+  studentId?: string | null
+  level?: number | null
+  gender: $Enums.Gender
+  profilePicture?: string | null
+  phone: string
+  serviceId: string
+  residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
+  subscriptionStatus: $Enums.SubscriptionStatus
+  joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  updatedAt?: Date | string
+  institution: Prisma.InstitutionCreateNestedOneWithoutSubscribersInput
+  plan?: Prisma.PlanCreateNestedOneWithoutSubscribersInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSubscriberInput
+  devices?: Prisma.DeviceCreateNestedManyWithoutSubscriberInput
+  serviceRequests?: Prisma.ServiceRequestCreateNestedManyWithoutSubscriberInput
+}
+
+export type SubscriberUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  email: string
+  role: $Enums.Role
+  firstName: string
+  lastName: string
+  studentId?: string | null
+  level?: number | null
+  gender: $Enums.Gender
+  profilePicture?: string | null
+  phone: string
+  serviceId: string
+  residence: string
+  deviceCount?: number
+  accountStatus?: $Enums.AccountStatus
+  subscriptionStatus: $Enums.SubscriptionStatus
+  joinedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  updatedAt?: Date | string
+  institutionId: string
+  planId?: string | null
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSubscriberInput
+  devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutSubscriberInput
+  serviceRequests?: Prisma.ServiceRequestUncheckedCreateNestedManyWithoutSubscriberInput
+}
+
+export type SubscriberCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.SubscriberWhereUniqueInput
+  create: Prisma.XOR<Prisma.SubscriberCreateWithoutNotificationsInput, Prisma.SubscriberUncheckedCreateWithoutNotificationsInput>
+}
+
+export type SubscriberUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.SubscriberUpdateWithoutNotificationsInput, Prisma.SubscriberUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.SubscriberCreateWithoutNotificationsInput, Prisma.SubscriberUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.SubscriberWhereInput
+}
+
+export type SubscriberUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.SubscriberWhereInput
+  data: Prisma.XOR<Prisma.SubscriberUpdateWithoutNotificationsInput, Prisma.SubscriberUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type SubscriberUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institution?: Prisma.InstitutionUpdateOneRequiredWithoutSubscribersNestedInput
+  plan?: Prisma.PlanUpdateOneWithoutSubscribersNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSubscriberNestedInput
+  devices?: Prisma.DeviceUpdateManyWithoutSubscriberNestedInput
+  serviceRequests?: Prisma.ServiceRequestUpdateManyWithoutSubscriberNestedInput
+}
+
+export type SubscriberUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  studentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  residence?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institutionId?: Prisma.StringFieldUpdateOperationsInput | string
+  planId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSubscriberNestedInput
+  devices?: Prisma.DeviceUncheckedUpdateManyWithoutSubscriberNestedInput
+  serviceRequests?: Prisma.ServiceRequestUncheckedUpdateManyWithoutSubscriberNestedInput
 }
 
 export type SubscriberCreateManyPlanInput = {
@@ -1511,6 +1679,7 @@ export type SubscriberUpdateWithoutPlanInput = {
   payments?: Prisma.PaymentUpdateManyWithoutSubscriberNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutSubscriberNestedInput
   serviceRequests?: Prisma.ServiceRequestUpdateManyWithoutSubscriberNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutSubscriberNestedInput
 }
 
 export type SubscriberUncheckedUpdateWithoutPlanInput = {
@@ -1537,6 +1706,7 @@ export type SubscriberUncheckedUpdateWithoutPlanInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutSubscriberNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutSubscriberNestedInput
   serviceRequests?: Prisma.ServiceRequestUncheckedUpdateManyWithoutSubscriberNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutSubscriberNestedInput
 }
 
 export type SubscriberUncheckedUpdateManyWithoutPlanInput = {
@@ -1609,6 +1779,7 @@ export type SubscriberUpdateWithoutInstitutionInput = {
   payments?: Prisma.PaymentUpdateManyWithoutSubscriberNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutSubscriberNestedInput
   serviceRequests?: Prisma.ServiceRequestUpdateManyWithoutSubscriberNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutSubscriberNestedInput
 }
 
 export type SubscriberUncheckedUpdateWithoutInstitutionInput = {
@@ -1635,6 +1806,7 @@ export type SubscriberUncheckedUpdateWithoutInstitutionInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutSubscriberNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutSubscriberNestedInput
   serviceRequests?: Prisma.ServiceRequestUncheckedUpdateManyWithoutSubscriberNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutSubscriberNestedInput
 }
 
 export type SubscriberUncheckedUpdateManyWithoutInstitutionInput = {
@@ -1669,12 +1841,14 @@ export type SubscriberCountOutputType = {
   payments: number
   devices: number
   serviceRequests: number
+  notifications: number
 }
 
 export type SubscriberCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   payments?: boolean | SubscriberCountOutputTypeCountPaymentsArgs
   devices?: boolean | SubscriberCountOutputTypeCountDevicesArgs
   serviceRequests?: boolean | SubscriberCountOutputTypeCountServiceRequestsArgs
+  notifications?: boolean | SubscriberCountOutputTypeCountNotificationsArgs
 }
 
 /**
@@ -1708,6 +1882,13 @@ export type SubscriberCountOutputTypeCountServiceRequestsArgs<ExtArgs extends ru
   where?: Prisma.ServiceRequestWhereInput
 }
 
+/**
+ * SubscriberCountOutputType without action
+ */
+export type SubscriberCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationWhereInput
+}
+
 
 export type SubscriberSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1736,6 +1917,7 @@ export type SubscriberSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   payments?: boolean | Prisma.Subscriber$paymentsArgs<ExtArgs>
   devices?: boolean | Prisma.Subscriber$devicesArgs<ExtArgs>
   serviceRequests?: boolean | Prisma.Subscriber$serviceRequestsArgs<ExtArgs>
+  notifications?: boolean | Prisma.Subscriber$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.SubscriberCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subscriber"]>
 
@@ -1822,6 +2004,7 @@ export type SubscriberInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   payments?: boolean | Prisma.Subscriber$paymentsArgs<ExtArgs>
   devices?: boolean | Prisma.Subscriber$devicesArgs<ExtArgs>
   serviceRequests?: boolean | Prisma.Subscriber$serviceRequestsArgs<ExtArgs>
+  notifications?: boolean | Prisma.Subscriber$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.SubscriberCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SubscriberIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1841,6 +2024,7 @@ export type $SubscriberPayload<ExtArgs extends runtime.Types.Extensions.Internal
     payments: Prisma.$PaymentPayload<ExtArgs>[]
     devices: Prisma.$DevicePayload<ExtArgs>[]
     serviceRequests: Prisma.$ServiceRequestPayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2263,6 +2447,7 @@ export interface Prisma__SubscriberClient<T, Null = never, ExtArgs extends runti
   payments<T extends Prisma.Subscriber$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Subscriber$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   devices<T extends Prisma.Subscriber$devicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Subscriber$devicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   serviceRequests<T extends Prisma.Subscriber$serviceRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Subscriber$serviceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServiceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.Subscriber$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Subscriber$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2802,6 +2987,30 @@ export type Subscriber$serviceRequestsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.ServiceRequestScalarFieldEnum | Prisma.ServiceRequestScalarFieldEnum[]
+}
+
+/**
+ * Subscriber.notifications
+ */
+export type Subscriber$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Notification
+   */
+  select?: Prisma.NotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Notification
+   */
+  omit?: Prisma.NotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationInclude<ExtArgs> | null
+  where?: Prisma.NotificationWhereInput
+  orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
 }
 
 /**

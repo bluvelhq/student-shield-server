@@ -1,62 +1,22 @@
 import {
-  BadRequestException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { SubscriptionStatus } from 'prisma/generated/prisma/enums';
 import { DeviceDto } from 'src/dto/devices.dto';
 import { HelperService } from 'src/helpers/helpers.service';
-import { PlanService } from 'src/plan/plan.service';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
-export class StudentService {
+export class DeviceService {
   constructor(
-    private readonly prisma: PrismaService,
     private readonly helper: HelperService,
-    private readonly plan: PlanService,
+    private readonly prisma: PrismaService,
+    private readonly config: ConfigService,
   ) {}
-
-  async getSubscriberDetails(id: string) {
-    const cacheKey = `subscriber:${id}`;
-    const cached = await this.helper.getCache(cacheKey);
-
-    if (cached) {
-      return {
-        message: 'Subscriber details fetched successfully',
-        data: cached,
-      };
-    }
-
-    try {
-      const subscriber = await this.prisma.subscriber.findUnique({
-        where: { id },
-        include: {
-          plan: true,
-          institution: true,
-          payments: true,
-          devices: true,
-          serviceRequests: true,
-        },
-      });
-
-      if (!subscriber) {
-        throw new NotFoundException('Subscriber not found');
-      }
-
-      await this.helper.setCache(cacheKey, subscriber, 60 * 60 * 24 * 1000);
-      return {
-        message: 'Subscriber details fetched successfully',
-        data: subscriber,
-      };
-    } catch (error) {
-      throw new InternalServerErrorException(
-        'Something went wrong while fetching subscriber details',
-      );
-    }
-  }
 
   async addDevice(
     id: string,
@@ -136,13 +96,40 @@ export class StudentService {
         },
       });
 
-      // Clear the cached subscriber details to reflect updated deviceCount
+      const env = this.config.get<string>('app.env');
+
+      const devClient = this.config.get<string>('app.devClientUrl');
+      const prodClient = this.config.get<string>('app.prodClientUrl');
+
+      const qrCodeUrl = `${env === 'development' ? devClient : prodClient}/device/${device.id}`;
+
+      const qr = await this.helper.generateQrCode(qrCodeUrl);
+      await this.prisma.device.update({
+        where: {
+          id: device.id,
+        },
+        data: {
+          qrCode: qr.data,
+        },
+      });
+
       const cacheKey = `subscriber:${id}`;
       await this.helper.delCache(cacheKey);
+
+      // Create in-app notification
+      await this.prisma.notification.create({
+        data: {
+          title: 'Device Added Successfully',
+          body: `Your device "${device.name || device.model || 'Unknown Device'}" has been added to your profile.`,
+          from: 'System',
+          subscriberId: id,
+        },
+      });
 
       return {
         message: 'Device added successfully',
         data: device,
+        qr,
       };
     } catch (error) {
       if (
@@ -153,6 +140,47 @@ export class StudentService {
       }
       throw new InternalServerErrorException(
         'Something went wrong while adding device',
+      );
+    }
+  }
+
+  async getDeviceDetails(deviceId: string) {
+    const cached = await this.helper.getCache(`device:${deviceId}`);
+    if (cached) {
+      return {
+        message: 'Device details fetched successfully',
+        data: cached,
+      };
+    }
+    try {
+      const device = await this.prisma.device.findUnique({
+        where: { id: deviceId },
+        include: {
+          customDeviceAttributes: true,
+          subscriber: {
+            include: {
+              plan: true,
+              institution: true,
+            },
+          },
+          serviceRequests: true,
+        },
+      });
+
+      if (!device) {
+        throw new NotFoundException('Device not found');
+      }
+
+      await this.helper.setCache(`device:${deviceId}`, device);
+
+      return {
+        message: 'Device details fetched successfully',
+        data: device,
+      };
+    } catch (error) {
+      if (error instanceof NotFoundException) throw error;
+      throw new InternalServerErrorException(
+        'Something went wrong while fetching device details',
       );
     }
   }
@@ -218,6 +246,16 @@ export class StudentService {
       // Clear the cached subscriber details
       await this.helper.delCache(`subscriber:${subscriberId}`);
 
+      // Create in-app notification
+      await this.prisma.notification.create({
+        data: {
+          title: 'Device Updated Successfully',
+          body: `Your device "${updatedDevice.name || updatedDevice.model || 'Unknown Device'}" details have been updated.`,
+          from: 'System',
+          subscriberId,
+        },
+      });
+
       return {
         message: 'Device updated successfully',
         data: updatedDevice,
@@ -269,6 +307,16 @@ export class StudentService {
       // Clear the cached subscriber details
       await this.helper.delCache(`subscriber:${subscriberId}`);
 
+      // Create in-app notification
+      await this.prisma.notification.create({
+        data: {
+          title: 'Device Removed Successfully',
+          body: `Your device "${device.name || device.model || 'Unknown Device'}" has been removed from your profile.`,
+          from: 'System',
+          subscriberId,
+        },
+      });
+
       return {
         message: 'Device removed successfully',
       };
@@ -312,10 +360,4 @@ export class StudentService {
       );
     }
   }
-
-  async submitRequest() {}
-
-  async updateRequest() {}
-
-  async deleteRequest() {}
 }

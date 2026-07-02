@@ -39,6 +39,7 @@ model Subscriber {
   payments           Payment[]
   devices            Device[]
   serviceRequests    ServiceRequest[]
+  notifications      Notification[]
 
   @@index([email, phone, studentId])
   @@map("subscribers")
@@ -54,6 +55,7 @@ model Plan {
   subscribers Subscriber[]
   createdAt   DateTime     @default(now()) @map("created_at")
   updatedAt   DateTime     @updatedAt @map("updated_at")
+  payments    Payment[]
 
   @@index([id, type])
   @@map("plans")
@@ -79,8 +81,10 @@ model Payment {
   subscriberId String        @map("subscriber_id")
   amount       Float
   method       PaymentMethod
+  plan         Plan?         @relation(fields: [planId], references: [id])
   reference    String        @unique
   status       PaymentStatus
+  type         PaymentType   @default(NEW)
   planId       String?       @map("plan_id")
   createdAt    DateTime      @default(now()) @map("created_at")
   updatedAt    DateTime      @updatedAt @map("updated_at")
@@ -95,6 +99,7 @@ model Device {
   subscriberId           String                  @map("subscriber_id")
   type                   DeviceType
   model                  String?
+  qrCode                 String?
   serialCode             String?
   name                   String?
   brand                  String?
@@ -121,17 +126,18 @@ model CustomDeviceAttribute {
 }
 
 model Admin {
-  id             String    @id @default(uuid())
+  id             String         @id @default(uuid())
   privilege      Role
-  email          String    @unique
-  serviceId      String    @unique @map("service_id")
-  firstName      String    @map("first_name")
-  lastName       String    @map("last_name")
-  profilePicture String?   @map("profile_picture")
-  lastLoginAt    DateTime? @map("last_login_at")
-  lastActiveAt   DateTime? @map("last_active_at")
-  createdAt      DateTime  @default(now()) @map("created_at")
-  updatedAt      DateTime  @updatedAt @map("updated_at")
+  email          String         @unique
+  serviceId      String         @unique @map("service_id")
+  firstName      String         @map("first_name")
+  lastName       String         @map("last_name")
+  profilePicture String?        @map("profile_picture")
+  lastLoginAt    DateTime?      @map("last_login_at")
+  lastActiveAt   DateTime?      @map("last_active_at")
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
+  notifications  Notification[]
 
   @@index([id, serviceId])
   @@map("admins")
@@ -153,8 +159,9 @@ model ServiceRequest {
   websiteConceptDescription String?              @map("website_concept_description")
   websitePageCount          Int?                 @map("website_page_count")
   preferHosting             Boolean              @default(true) @map("prefer_hosting")
-  receipt                   String               @map("receipt")
+  receipt                   String?              @map("receipt")
   remarks                   String?
+  qrCode                    String?              @map("qr_code")
   createdAt                 DateTime             @default(now()) @map("created_at")
   updatedAt                 DateTime             @updatedAt @map("updated_at")
 
@@ -163,15 +170,19 @@ model ServiceRequest {
 }
 
 model Notification {
-  id        String   @id @default(uuid())
-  title     String
-  from      String
-  body      String
-  isRead    Boolean  @default(false)
-  isSeen    Boolean  @default(false)
-  isDeleted Boolean  @default(false)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id           String      @id @default(uuid())
+  title        String
+  from         String?
+  body         String?
+  admin        Admin?      @relation(fields: [adminId], references: [id])
+  subscriber   Subscriber? @relation(fields: [subscriberId], references: [id])
+  isRead       Boolean     @default(false)
+  isSeen       Boolean     @default(false)
+  isDeleted    Boolean     @default(false)
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+  subscriberId String?     @map("subscriber_id")
+  adminId      String?     @map("admin_id")
 
   @@index([id, isDeleted, isRead, isSeen])
   @@map("notifications")
@@ -193,12 +204,19 @@ enum ServiceRequestStatus {
   DELIVERED
 }
 
+enum PaymentType {
+  RENEWAL
+  UPGRADE
+  DOWNGRADE
+  NEW
+}
+
 enum PaymentMethod {
-  MOBILE_MONEY
-  CARD
-  CASH
-  BANK_TRANSFER
-  MPESA
+  MOBILE_MONEY  @map("mobile_money")
+  CARD          @map("card")
+  CASH          @map("cash")
+  BANK_TRANSFER @map("bank_transfer")
+  MPESA         @map("mpesa")
 }
 
 enum AccountStatus {

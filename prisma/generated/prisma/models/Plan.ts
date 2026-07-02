@@ -241,6 +241,7 @@ export type PlanWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Plan"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Plan"> | Date | string
   subscribers?: Prisma.SubscriberListRelationFilter
+  payments?: Prisma.PaymentListRelationFilter
 }
 
 export type PlanOrderByWithRelationInput = {
@@ -253,6 +254,7 @@ export type PlanOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   subscribers?: Prisma.SubscriberOrderByRelationAggregateInput
+  payments?: Prisma.PaymentOrderByRelationAggregateInput
 }
 
 export type PlanWhereUniqueInput = Prisma.AtLeast<{
@@ -268,6 +270,7 @@ export type PlanWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Plan"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Plan"> | Date | string
   subscribers?: Prisma.SubscriberListRelationFilter
+  payments?: Prisma.PaymentListRelationFilter
 }, "id" | "type">
 
 export type PlanOrderByWithAggregationInput = {
@@ -310,6 +313,7 @@ export type PlanCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   subscribers?: Prisma.SubscriberCreateNestedManyWithoutPlanInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPlanInput
 }
 
 export type PlanUncheckedCreateInput = {
@@ -322,6 +326,7 @@ export type PlanUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   subscribers?: Prisma.SubscriberUncheckedCreateNestedManyWithoutPlanInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPlanInput
 }
 
 export type PlanUpdateInput = {
@@ -334,6 +339,7 @@ export type PlanUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscribers?: Prisma.SubscriberUpdateManyWithoutPlanNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPlanNestedInput
 }
 
 export type PlanUncheckedUpdateInput = {
@@ -346,6 +352,7 @@ export type PlanUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscribers?: Prisma.SubscriberUncheckedUpdateManyWithoutPlanNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPlanNestedInput
 }
 
 export type PlanCreateManyInput = {
@@ -472,6 +479,22 @@ export type PlanUpdatebenefitsInput = {
   push?: string | string[]
 }
 
+export type PlanCreateNestedOneWithoutPaymentsInput = {
+  create?: Prisma.XOR<Prisma.PlanCreateWithoutPaymentsInput, Prisma.PlanUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.PlanCreateOrConnectWithoutPaymentsInput
+  connect?: Prisma.PlanWhereUniqueInput
+}
+
+export type PlanUpdateOneWithoutPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.PlanCreateWithoutPaymentsInput, Prisma.PlanUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.PlanCreateOrConnectWithoutPaymentsInput
+  upsert?: Prisma.PlanUpsertWithoutPaymentsInput
+  disconnect?: Prisma.PlanWhereInput | boolean
+  delete?: Prisma.PlanWhereInput | boolean
+  connect?: Prisma.PlanWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlanUpdateToOneWithWhereWithoutPaymentsInput, Prisma.PlanUpdateWithoutPaymentsInput>, Prisma.PlanUncheckedUpdateWithoutPaymentsInput>
+}
+
 export type PlanCreateWithoutSubscribersInput = {
   id?: string
   type: $Enums.PlanType
@@ -481,6 +504,7 @@ export type PlanCreateWithoutSubscribersInput = {
   benefits?: Prisma.PlanCreatebenefitsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  payments?: Prisma.PaymentCreateNestedManyWithoutPlanInput
 }
 
 export type PlanUncheckedCreateWithoutSubscribersInput = {
@@ -492,6 +516,7 @@ export type PlanUncheckedCreateWithoutSubscribersInput = {
   benefits?: Prisma.PlanCreatebenefitsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPlanInput
 }
 
 export type PlanCreateOrConnectWithoutSubscribersInput = {
@@ -519,6 +544,7 @@ export type PlanUpdateWithoutSubscribersInput = {
   benefits?: Prisma.PlanUpdatebenefitsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  payments?: Prisma.PaymentUpdateManyWithoutPlanNestedInput
 }
 
 export type PlanUncheckedUpdateWithoutSubscribersInput = {
@@ -530,6 +556,71 @@ export type PlanUncheckedUpdateWithoutSubscribersInput = {
   benefits?: Prisma.PlanUpdatebenefitsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPlanNestedInput
+}
+
+export type PlanCreateWithoutPaymentsInput = {
+  id?: string
+  type: $Enums.PlanType
+  fee: number
+  maxDevices: number
+  summary: string
+  benefits?: Prisma.PlanCreatebenefitsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscribers?: Prisma.SubscriberCreateNestedManyWithoutPlanInput
+}
+
+export type PlanUncheckedCreateWithoutPaymentsInput = {
+  id?: string
+  type: $Enums.PlanType
+  fee: number
+  maxDevices: number
+  summary: string
+  benefits?: Prisma.PlanCreatebenefitsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscribers?: Prisma.SubscriberUncheckedCreateNestedManyWithoutPlanInput
+}
+
+export type PlanCreateOrConnectWithoutPaymentsInput = {
+  where: Prisma.PlanWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlanCreateWithoutPaymentsInput, Prisma.PlanUncheckedCreateWithoutPaymentsInput>
+}
+
+export type PlanUpsertWithoutPaymentsInput = {
+  update: Prisma.XOR<Prisma.PlanUpdateWithoutPaymentsInput, Prisma.PlanUncheckedUpdateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.PlanCreateWithoutPaymentsInput, Prisma.PlanUncheckedCreateWithoutPaymentsInput>
+  where?: Prisma.PlanWhereInput
+}
+
+export type PlanUpdateToOneWithWhereWithoutPaymentsInput = {
+  where?: Prisma.PlanWhereInput
+  data: Prisma.XOR<Prisma.PlanUpdateWithoutPaymentsInput, Prisma.PlanUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type PlanUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  fee?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxDevices?: Prisma.IntFieldUpdateOperationsInput | number
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  benefits?: Prisma.PlanUpdatebenefitsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscribers?: Prisma.SubscriberUpdateManyWithoutPlanNestedInput
+}
+
+export type PlanUncheckedUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  fee?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxDevices?: Prisma.IntFieldUpdateOperationsInput | number
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  benefits?: Prisma.PlanUpdatebenefitsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscribers?: Prisma.SubscriberUncheckedUpdateManyWithoutPlanNestedInput
 }
 
 
@@ -539,10 +630,12 @@ export type PlanUncheckedUpdateWithoutSubscribersInput = {
 
 export type PlanCountOutputType = {
   subscribers: number
+  payments: number
 }
 
 export type PlanCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscribers?: boolean | PlanCountOutputTypeCountSubscribersArgs
+  payments?: boolean | PlanCountOutputTypeCountPaymentsArgs
 }
 
 /**
@@ -562,6 +655,13 @@ export type PlanCountOutputTypeCountSubscribersArgs<ExtArgs extends runtime.Type
   where?: Prisma.SubscriberWhereInput
 }
 
+/**
+ * PlanCountOutputType without action
+ */
+export type PlanCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentWhereInput
+}
+
 
 export type PlanSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -573,6 +673,7 @@ export type PlanSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   subscribers?: boolean | Prisma.Plan$subscribersArgs<ExtArgs>
+  payments?: boolean | Prisma.Plan$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.PlanCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["plan"]>
 
@@ -612,6 +713,7 @@ export type PlanSelectScalar = {
 export type PlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "fee" | "maxDevices" | "summary" | "benefits" | "createdAt" | "updatedAt", ExtArgs["result"]["plan"]>
 export type PlanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscribers?: boolean | Prisma.Plan$subscribersArgs<ExtArgs>
+  payments?: boolean | Prisma.Plan$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.PlanCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PlanIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -621,6 +723,7 @@ export type $PlanPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Plan"
   objects: {
     subscribers: Prisma.$SubscriberPayload<ExtArgs>[]
+    payments: Prisma.$PaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1026,6 +1129,7 @@ readonly fields: PlanFieldRefs;
 export interface Prisma__PlanClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   subscribers<T extends Prisma.Plan$subscribersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Plan$subscribersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payments<T extends Prisma.Plan$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Plan$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1477,6 +1581,30 @@ export type Plan$subscribersArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.SubscriberScalarFieldEnum | Prisma.SubscriberScalarFieldEnum[]
+}
+
+/**
+ * Plan.payments
+ */
+export type Plan$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Payment
+   */
+  select?: Prisma.PaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Payment
+   */
+  omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
+  where?: Prisma.PaymentWhereInput
+  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
 }
 
 /**

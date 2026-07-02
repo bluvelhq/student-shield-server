@@ -74,9 +74,8 @@ export class AuthService {
       );
 
       const serviceId = this.helpers.generateServiceId();
-      const hashedServiceId = await bcrypt.hash(serviceId, 10);
 
-      await this.prisma.subscriber.create({
+      const newSubscriber = await this.prisma.subscriber.create({
         data: {
           email: payload.email,
           firstName: payload.firstName,
@@ -84,7 +83,7 @@ export class AuthService {
           studentId: payload.studentId,
           level: payload.level,
           phone: payload.phone,
-          serviceId: hashedServiceId,
+          serviceId: serviceId,
           residence: payload.residence,
           institutionId: institutionId,
           planId: planId,
@@ -93,12 +92,22 @@ export class AuthService {
           subscriptionStatus: SubscriptionStatus.PENDING,
           payments: {
             create: {
-              amount: plan.fee,
+              amount: parseFloat(plan.fee.toString()),
               method: PaymentMethod.MOBILE_MONEY,
               reference: data.reference,
               status: PaymentStatus.PENDING,
             },
           },
+        },
+      });
+
+      // Create welcome notification
+      await this.prisma.notification.create({
+        data: {
+          title: 'Welcome to Student Shield!',
+          body: `Your account has been created. Please complete your payment of GHS ${plan.fee} to activate your subscription.`,
+          from: 'System',
+          subscriberId: newSubscriber.id,
         },
       });
 
@@ -155,16 +164,11 @@ export class AuthService {
         throw new UnauthorizedException('Account is not accessible');
       }
 
-      const isServiceIdMatching = await bcrypt.compare(
-        serviceId,
-        subscriber.serviceId,
-      );
-
-      if (!isServiceIdMatching) {
-        throw new UnauthorizedException('Invalid service ID');
-      }
-
       const { id, role, profilePicture } = subscriber;
+
+      if (serviceId !== subscriber.serviceId) {
+        throw new UnauthorizedException('Invalid credentials');
+      }
 
       const token = this.jwt.sign({
         id,
@@ -232,7 +236,6 @@ export class AuthService {
   async resetPassword(email: string, role: Role) {
     try {
       const newServiceId = this.helpers.generateServiceId();
-      const hashedServiceId = await bcrypt.hash(newServiceId, 10);
       let firstName = 'User';
 
       if (role === Role.SUBSCRIBER) {
@@ -245,7 +248,16 @@ export class AuthService {
 
         await this.prisma.subscriber.update({
           where: { email },
-          data: { serviceId: hashedServiceId },
+          data: { serviceId: newServiceId },
+        });
+
+        await this.prisma.notification.create({
+          data: {
+            title: 'Service ID Reset Successfully',
+            body: 'Your login Service ID was successfully reset. The details have been sent to your email.',
+            from: 'System',
+            subscriberId: subscriber.id,
+          },
         });
       } else if (role === Role.ADMIN || role === Role.SUPER_ADMIN) {
         const admin = await this.prisma.admin.findUnique({
@@ -257,7 +269,16 @@ export class AuthService {
 
         await this.prisma.admin.update({
           where: { email },
-          data: { serviceId: hashedServiceId },
+          data: { serviceId: newServiceId },
+        });
+
+        await this.prisma.notification.create({
+          data: {
+            title: 'Service ID Reset Successfully',
+            body: 'Your login Service ID was successfully reset. The details have been sent to your email.',
+            from: 'System',
+            adminId: admin.id,
+          },
         });
       } else {
         throw new NotFoundException('Invalid role specified');

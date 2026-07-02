@@ -3,10 +3,12 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
+  NotFoundException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PaymentStatus } from 'prisma/generated/prisma/enums';
 import { firstValueFrom } from 'rxjs';
+import { HelperService } from 'src/helpers/helpers.service';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -15,6 +17,7 @@ export class PaymentService {
     private readonly axios: HttpService,
     private readonly prisma: PrismaService,
     private config: ConfigService,
+    private readonly helper: HelperService,
   ) {}
 
   logger = new Logger(PaymentService.name);
@@ -131,6 +134,47 @@ export class PaymentService {
     } catch (error) {
       this.logger.error(error);
       throw new InternalServerErrorException('Failed to generate checkout URL');
+    }
+  }
+
+  async fetchSubscriberPaymentRecords(subscriberId: string) {
+    try {
+      const cached = await this.helper.getCache(`payments:${subscriberId}`);
+      if (cached) {
+        return {
+          message: 'Payment records fetched successfully',
+          data: cached,
+        };
+      }
+      const payments = await this.prisma.payment.findMany({
+        where: {
+          subscriberId,
+        },
+        include: {
+          plan: true,
+        },
+      });
+
+      if (!payments) {
+        throw new NotFoundException(
+          'No payment records found for this subscriber',
+        );
+      }
+
+      await this.helper.setCache(`payments:${subscriberId}`, payments, 60);
+
+      return {
+        message: 'Payment records fetched successfully',
+        data: payments,
+      };
+    } catch (error) {
+      this.logger.error(error);
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Failed to fetch subscriber payment details',
+      );
     }
   }
 }

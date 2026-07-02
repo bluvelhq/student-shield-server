@@ -1178,6 +1178,7 @@ export const PaymentScalarFieldEnum = {
   method: 'method',
   reference: 'reference',
   status: 'status',
+  type: 'type',
   planId: 'planId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1191,6 +1192,7 @@ export const DeviceScalarFieldEnum = {
   subscriberId: 'subscriberId',
   type: 'type',
   model: 'model',
+  qrCode: 'qrCode',
   serialCode: 'serialCode',
   name: 'name',
   brand: 'brand',
@@ -1246,6 +1248,7 @@ export const ServiceRequestScalarFieldEnum = {
   preferHosting: 'preferHosting',
   receipt: 'receipt',
   remarks: 'remarks',
+  qrCode: 'qrCode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1262,7 +1265,9 @@ export const NotificationScalarFieldEnum = {
   isSeen: 'isSeen',
   isDeleted: 'isDeleted',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  subscriberId: 'subscriberId',
+  adminId: 'adminId'
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
@@ -1463,6 +1468,20 @@ export type EnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
  * Reference to a field of type 'PaymentStatus[]'
  */
 export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PaymentType'
+ */
+export type EnumPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentType'>
+    
+
+
+/**
+ * Reference to a field of type 'PaymentType[]'
+ */
+export type ListEnumPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentType[]'>
     
 
 

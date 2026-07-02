@@ -2,8 +2,11 @@ export default () => ({
   app: {
     name: process.env.APP_NAME || 'appName',
     env: process.env.APP_ENV || 'appEnv',
-    url: process.env.APP_URL || 'appUrl',
+    devClientUrl: process.env.DEV_CLIENT_URL || 'localhost:5173',
+    devServerUrl: process.env.DEV_SERVER_URL || 'locahost:4000',
     port: process.env.APP_PORT || 4000,
+    prodClientUrl: process.env.PROD_CLIENT_URL || 'localhost:5173',
+    prodServerUrl: process.env.PROD_SERVER_URL || 'locahost:4000',
     adminSecretCode: process.env.ADMIN_SECRET_CODE || 'adminSecretCode',
     requestTimeout: Number(process.env.REQUEST_TIMEOUT) || 4000,
   },
@@ -43,5 +46,13 @@ export default () => ({
     user: process.env.BREVO_USER,
     host: process.env.BREVO_HOST,
     from: process.env.MAIL_FROM,
+  },
+  apiNinjas: {
+    apiKey: process.env.API_NINJAS_API_KEY || 'apiKey',
+    baseUrl: process.env.API_NINJAS_BASE_URL || 'baseUrl',
+  },
+  company: {
+    email: process.env.COMPANY_EMAIL,
+    phone: process.env.COMPANY_PHONE,
   },
 });

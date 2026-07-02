@@ -29,6 +29,7 @@ export type DeviceMinAggregateOutputType = {
   subscriberId: string | null
   type: $Enums.DeviceType | null
   model: string | null
+  qrCode: string | null
   serialCode: string | null
   name: string | null
   brand: string | null
@@ -42,6 +43,7 @@ export type DeviceMaxAggregateOutputType = {
   subscriberId: string | null
   type: $Enums.DeviceType | null
   model: string | null
+  qrCode: string | null
   serialCode: string | null
   name: string | null
   brand: string | null
@@ -55,6 +57,7 @@ export type DeviceCountAggregateOutputType = {
   subscriberId: number
   type: number
   model: number
+  qrCode: number
   serialCode: number
   name: number
   brand: number
@@ -71,6 +74,7 @@ export type DeviceMinAggregateInputType = {
   subscriberId?: true
   type?: true
   model?: true
+  qrCode?: true
   serialCode?: true
   name?: true
   brand?: true
@@ -84,6 +88,7 @@ export type DeviceMaxAggregateInputType = {
   subscriberId?: true
   type?: true
   model?: true
+  qrCode?: true
   serialCode?: true
   name?: true
   brand?: true
@@ -97,6 +102,7 @@ export type DeviceCountAggregateInputType = {
   subscriberId?: true
   type?: true
   model?: true
+  qrCode?: true
   serialCode?: true
   name?: true
   brand?: true
@@ -184,6 +190,7 @@ export type DeviceGroupByOutputType = {
   subscriberId: string
   type: $Enums.DeviceType
   model: string | null
+  qrCode: string | null
   serialCode: string | null
   name: string | null
   brand: string | null
@@ -219,6 +226,7 @@ export type DeviceWhereInput = {
   subscriberId?: Prisma.StringFilter<"Device"> | string
   type?: Prisma.EnumDeviceTypeFilter<"Device"> | $Enums.DeviceType
   model?: Prisma.StringNullableFilter<"Device"> | string | null
+  qrCode?: Prisma.StringNullableFilter<"Device"> | string | null
   serialCode?: Prisma.StringNullableFilter<"Device"> | string | null
   name?: Prisma.StringNullableFilter<"Device"> | string | null
   brand?: Prisma.StringNullableFilter<"Device"> | string | null
@@ -236,6 +244,7 @@ export type DeviceOrderByWithRelationInput = {
   subscriberId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   model?: Prisma.SortOrderInput | Prisma.SortOrder
+  qrCode?: Prisma.SortOrderInput | Prisma.SortOrder
   serialCode?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   brand?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -256,6 +265,7 @@ export type DeviceWhereUniqueInput = Prisma.AtLeast<{
   subscriberId?: Prisma.StringFilter<"Device"> | string
   type?: Prisma.EnumDeviceTypeFilter<"Device"> | $Enums.DeviceType
   model?: Prisma.StringNullableFilter<"Device"> | string | null
+  qrCode?: Prisma.StringNullableFilter<"Device"> | string | null
   serialCode?: Prisma.StringNullableFilter<"Device"> | string | null
   name?: Prisma.StringNullableFilter<"Device"> | string | null
   brand?: Prisma.StringNullableFilter<"Device"> | string | null
@@ -273,6 +283,7 @@ export type DeviceOrderByWithAggregationInput = {
   subscriberId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   model?: Prisma.SortOrderInput | Prisma.SortOrder
+  qrCode?: Prisma.SortOrderInput | Prisma.SortOrder
   serialCode?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   brand?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -293,6 +304,7 @@ export type DeviceScalarWhereWithAggregatesInput = {
   subscriberId?: Prisma.StringWithAggregatesFilter<"Device"> | string
   type?: Prisma.EnumDeviceTypeWithAggregatesFilter<"Device"> | $Enums.DeviceType
   model?: Prisma.StringNullableWithAggregatesFilter<"Device"> | string | null
+  qrCode?: Prisma.StringNullableWithAggregatesFilter<"Device"> | string | null
   serialCode?: Prisma.StringNullableWithAggregatesFilter<"Device"> | string | null
   name?: Prisma.StringNullableWithAggregatesFilter<"Device"> | string | null
   brand?: Prisma.StringNullableWithAggregatesFilter<"Device"> | string | null
@@ -306,6 +318,7 @@ export type DeviceCreateInput = {
   id?: string
   type: $Enums.DeviceType
   model?: string | null
+  qrCode?: string | null
   serialCode?: string | null
   name?: string | null
   brand?: string | null
@@ -323,6 +336,7 @@ export type DeviceUncheckedCreateInput = {
   subscriberId: string
   type: $Enums.DeviceType
   model?: string | null
+  qrCode?: string | null
   serialCode?: string | null
   name?: string | null
   brand?: string | null
@@ -338,6 +352,7 @@ export type DeviceUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDeviceTypeFieldUpdateOperationsInput | $Enums.DeviceType
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -355,6 +370,7 @@ export type DeviceUncheckedUpdateInput = {
   subscriberId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDeviceTypeFieldUpdateOperationsInput | $Enums.DeviceType
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -371,6 +387,7 @@ export type DeviceCreateManyInput = {
   subscriberId: string
   type: $Enums.DeviceType
   model?: string | null
+  qrCode?: string | null
   serialCode?: string | null
   name?: string | null
   brand?: string | null
@@ -384,6 +401,7 @@ export type DeviceUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDeviceTypeFieldUpdateOperationsInput | $Enums.DeviceType
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -398,6 +416,7 @@ export type DeviceUncheckedUpdateManyInput = {
   subscriberId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDeviceTypeFieldUpdateOperationsInput | $Enums.DeviceType
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -422,6 +441,7 @@ export type DeviceCountOrderByAggregateInput = {
   subscriberId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   model?: Prisma.SortOrder
+  qrCode?: Prisma.SortOrder
   serialCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
   brand?: Prisma.SortOrder
@@ -436,6 +456,7 @@ export type DeviceMaxOrderByAggregateInput = {
   subscriberId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   model?: Prisma.SortOrder
+  qrCode?: Prisma.SortOrder
   serialCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
   brand?: Prisma.SortOrder
@@ -449,6 +470,7 @@ export type DeviceMinOrderByAggregateInput = {
   subscriberId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   model?: Prisma.SortOrder
+  qrCode?: Prisma.SortOrder
   serialCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
   brand?: Prisma.SortOrder
@@ -556,6 +578,7 @@ export type DeviceCreateWithoutSubscriberInput = {
   id?: string
   type: $Enums.DeviceType
   model?: string | null
+  qrCode?: string | null
   serialCode?: string | null
   name?: string | null
   brand?: string | null
@@ -571,6 +594,7 @@ export type DeviceUncheckedCreateWithoutSubscriberInput = {
   id?: string
   type: $Enums.DeviceType
   model?: string | null
+  qrCode?: string | null
   serialCode?: string | null
   name?: string | null
   brand?: string | null
@@ -616,6 +640,7 @@ export type DeviceScalarWhereInput = {
   subscriberId?: Prisma.StringFilter<"Device"> | string
   type?: Prisma.EnumDeviceTypeFilter<"Device"> | $Enums.DeviceType
   model?: Prisma.StringNullableFilter<"Device"> | string | null
+  qrCode?: Prisma.StringNullableFilter<"Device"> | string | null
   serialCode?: Prisma.StringNullableFilter<"Device"> | string | null
   name?: Prisma.StringNullableFilter<"Device"> | string | null
   brand?: Prisma.StringNullableFilter<"Device"> | string | null
@@ -629,6 +654,7 @@ export type DeviceCreateWithoutCustomDeviceAttributesInput = {
   id?: string
   type: $Enums.DeviceType
   model?: string | null
+  qrCode?: string | null
   serialCode?: string | null
   name?: string | null
   brand?: string | null
@@ -645,6 +671,7 @@ export type DeviceUncheckedCreateWithoutCustomDeviceAttributesInput = {
   subscriberId: string
   type: $Enums.DeviceType
   model?: string | null
+  qrCode?: string | null
   serialCode?: string | null
   name?: string | null
   brand?: string | null
@@ -675,6 +702,7 @@ export type DeviceUpdateWithoutCustomDeviceAttributesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDeviceTypeFieldUpdateOperationsInput | $Enums.DeviceType
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -691,6 +719,7 @@ export type DeviceUncheckedUpdateWithoutCustomDeviceAttributesInput = {
   subscriberId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDeviceTypeFieldUpdateOperationsInput | $Enums.DeviceType
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -705,6 +734,7 @@ export type DeviceCreateWithoutServiceRequestsInput = {
   id?: string
   type: $Enums.DeviceType
   model?: string | null
+  qrCode?: string | null
   serialCode?: string | null
   name?: string | null
   brand?: string | null
@@ -721,6 +751,7 @@ export type DeviceUncheckedCreateWithoutServiceRequestsInput = {
   subscriberId: string
   type: $Enums.DeviceType
   model?: string | null
+  qrCode?: string | null
   serialCode?: string | null
   name?: string | null
   brand?: string | null
@@ -751,6 +782,7 @@ export type DeviceUpdateWithoutServiceRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDeviceTypeFieldUpdateOperationsInput | $Enums.DeviceType
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -767,6 +799,7 @@ export type DeviceUncheckedUpdateWithoutServiceRequestsInput = {
   subscriberId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDeviceTypeFieldUpdateOperationsInput | $Enums.DeviceType
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -781,6 +814,7 @@ export type DeviceCreateManySubscriberInput = {
   id?: string
   type: $Enums.DeviceType
   model?: string | null
+  qrCode?: string | null
   serialCode?: string | null
   name?: string | null
   brand?: string | null
@@ -794,6 +828,7 @@ export type DeviceUpdateWithoutSubscriberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDeviceTypeFieldUpdateOperationsInput | $Enums.DeviceType
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -809,6 +844,7 @@ export type DeviceUncheckedUpdateWithoutSubscriberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDeviceTypeFieldUpdateOperationsInput | $Enums.DeviceType
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -824,6 +860,7 @@ export type DeviceUncheckedUpdateManyWithoutSubscriberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDeviceTypeFieldUpdateOperationsInput | $Enums.DeviceType
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -878,6 +915,7 @@ export type DeviceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   subscriberId?: boolean
   type?: boolean
   model?: boolean
+  qrCode?: boolean
   serialCode?: boolean
   name?: boolean
   brand?: boolean
@@ -896,6 +934,7 @@ export type DeviceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   subscriberId?: boolean
   type?: boolean
   model?: boolean
+  qrCode?: boolean
   serialCode?: boolean
   name?: boolean
   brand?: boolean
@@ -911,6 +950,7 @@ export type DeviceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   subscriberId?: boolean
   type?: boolean
   model?: boolean
+  qrCode?: boolean
   serialCode?: boolean
   name?: boolean
   brand?: boolean
@@ -926,6 +966,7 @@ export type DeviceSelectScalar = {
   subscriberId?: boolean
   type?: boolean
   model?: boolean
+  qrCode?: boolean
   serialCode?: boolean
   name?: boolean
   brand?: boolean
@@ -935,7 +976,7 @@ export type DeviceSelectScalar = {
   updatedAt?: boolean
 }
 
-export type DeviceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "subscriberId" | "type" | "model" | "serialCode" | "name" | "brand" | "os" | "media" | "createdAt" | "updatedAt", ExtArgs["result"]["device"]>
+export type DeviceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "subscriberId" | "type" | "model" | "qrCode" | "serialCode" | "name" | "brand" | "os" | "media" | "createdAt" | "updatedAt", ExtArgs["result"]["device"]>
 export type DeviceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscriber?: boolean | Prisma.SubscriberDefaultArgs<ExtArgs>
   customDeviceAttributes?: boolean | Prisma.Device$customDeviceAttributesArgs<ExtArgs>
@@ -961,6 +1002,7 @@ export type $DevicePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     subscriberId: string
     type: $Enums.DeviceType
     model: string | null
+    qrCode: string | null
     serialCode: string | null
     name: string | null
     brand: string | null
@@ -1398,6 +1440,7 @@ export interface DeviceFieldRefs {
   readonly subscriberId: Prisma.FieldRef<"Device", 'String'>
   readonly type: Prisma.FieldRef<"Device", 'DeviceType'>
   readonly model: Prisma.FieldRef<"Device", 'String'>
+  readonly qrCode: Prisma.FieldRef<"Device", 'String'>
   readonly serialCode: Prisma.FieldRef<"Device", 'String'>
   readonly name: Prisma.FieldRef<"Device", 'String'>
   readonly brand: Prisma.FieldRef<"Device", 'String'>

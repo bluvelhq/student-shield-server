@@ -19,7 +19,7 @@ export class PlanDto {
 
   @IsNumber()
   @IsNotEmpty()
-  deviceLimit: number;
+  maxDevices: number;
 
   @IsString()
   @IsOptional()

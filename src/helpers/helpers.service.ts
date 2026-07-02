@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Inject,
   Injectable,
   InternalServerErrorException,
@@ -10,6 +11,9 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { SupabaseService } from 'src/supabase/supabase.service';
+import { firstValueFrom } from 'rxjs';
+import { HttpService } from '@nestjs/axios';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class HelperService {
@@ -19,6 +23,8 @@ export class HelperService {
     private readonly mailerService: MailerService,
     @Inject(CACHE_MANAGER) private cache: Cache,
     private readonly supabase: SupabaseService,
+    private readonly axios: HttpService,
+    private readonly config: ConfigService,
   ) {}
   bucketName = 'Student_Shield_Media';
 
@@ -177,5 +183,33 @@ export class HelperService {
   async uploadMultipleMedia(files: Express.Multer.File[], id: string) {
     const uploadPromises = files.map((file) => this.uploadMedia(file, id));
     return Promise.all(uploadPromises);
+  }
+
+  async generateQrCode(data: string) {
+    try {
+      if (!data) {
+        throw new BadRequestException('Data required for qr code generation');
+      }
+
+      const baseUrl = this.config.get<string>('apiNinjas.baseUrl');
+      const apiKey = this.config.get<string>('apiNinjas.apiKey');
+
+      const url = `${baseUrl}/qrcode?data=${data}`;
+
+      const response = await firstValueFrom(
+        this.axios.get(url, {
+          headers: {
+            'X-Api-Key': apiKey,
+          },
+        }),
+      );
+
+      return {
+        data: response.data,
+      };
+    } catch (error) {
+      this.logger.error('Failed to generate QR code', error);
+      throw new InternalServerErrorException('Failed to generate QR code');
+    }
   }
 }

@@ -1,9 +1,10 @@
-import { IsInt, IsString, IsOptional, IsEnum } from 'class-validator';
+import { IsInt, IsString, IsOptional, IsEnum, IsEmail } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Gender } from 'prisma/generated/prisma/enums';
 import { Type } from 'class-transformer';
 
 export class SubscriberDto {
+  @IsEmail()
   @IsString()
   @ApiProperty({
     description: 'The email of the subscriber',

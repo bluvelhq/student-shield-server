@@ -15,22 +15,22 @@ async function bootstrap() {
   });
 
   //enable versioning (use the URI version)
-  app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1.0' });
+  app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1' });
 
   //setup MVC
-  app.useStaticAssets(join(__dirname, '..', 'public'));
-  app.setBaseViewsDir(join(__dirname, '..', 'views'));
+  app.useStaticAssets(join(process.cwd(), 'public'));
+  app.setBaseViewsDir(join(process.cwd(), 'views'));
   app.setViewEngine('hbs');
 
   //enable helmet
-  app.use(helmet());
+  // app.use(helmet());
 
   //enable cors
   app.enableCors({
-    origin: '*',
-    credentials: true,
+    origin: ['http://localhost:3000', 'https://shield.bluvelhq.com'],
+    credentials: false,
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: '*',
   });
 
   //set global prefix

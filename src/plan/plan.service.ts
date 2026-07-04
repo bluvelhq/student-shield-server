@@ -11,6 +11,7 @@ import {
   PaymentMethod,
   PaymentStatus,
   PaymentType,
+  SubscriptionStatus,
 } from 'prisma/generated/prisma/client';
 import { HelperService } from 'src/helpers/helpers.service';
 import { PaymentService } from 'src/payment/payment.service';
@@ -151,6 +152,10 @@ export class PlanService {
         throw new BadRequestException('You are not subscribed to this plan');
       }
 
+      if (subscriber.subscriptionStatus === SubscriptionStatus.ACTIVE) {
+        throw new ConflictException('Plan has not expired');
+      }
+
       const planFee = plan.fee;
       const data = await this.payment.initializeTransaction(
         subscriber.email,
@@ -160,7 +165,7 @@ export class PlanService {
 
       await this.prisma.payment.create({
         data: {
-          reference: data.reference,
+          reference: data.data.reference,
           amount: planFee,
           type: PaymentType.RENEWAL,
           status: PaymentStatus.PENDING,
@@ -178,6 +183,15 @@ export class PlanService {
         message: 'Plan renewal initiated successfully',
       };
     } catch (error) {
+      if (error instanceof ConflictException) {
+        throw error;
+      }
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
       this.logger.error('Failed to renew plan', error);
       throw new InternalServerErrorException(
         'Something went wrong while renewing the plan',
@@ -230,7 +244,7 @@ export class PlanService {
 
       await this.prisma.payment.create({
         data: {
-          reference: data.reference,
+          reference: data.data.reference,
           amount: amountToPay,
           type: PaymentType.UPGRADE,
           status: PaymentStatus.PENDING,

@@ -145,7 +145,7 @@ export class RequestService {
 
       const qr = await this.helper.generateQrCode(qrCodeUrl);
 
-      await this.prisma.serviceRequest.update({
+      const updatedRequest = await this.prisma.serviceRequest.update({
         where: {
           id: request.id,
         },
@@ -154,16 +154,19 @@ export class RequestService {
         },
       });
 
+      await this.helper.delCache(`subscriber:requests:${subscriber.id}`);
+      await this.helper.delCache(`subscriber:${subscriber.id}`);
+
       return {
         message: 'Request created successfully',
-        data: request,
+        data: updatedRequest,
         qrCode: qr,
       };
     } catch (error) {
-      if (
-        error instanceof NotFoundException ||
-        error instanceof UnauthorizedException
-      ) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      if (error instanceof UnauthorizedException) {
         throw error;
       }
       throw new InternalServerErrorException(

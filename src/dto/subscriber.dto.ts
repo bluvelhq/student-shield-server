@@ -1,6 +1,7 @@
 import { IsInt, IsString, IsOptional, IsEnum } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Gender } from 'prisma/generated/prisma/enums';
+import { Type } from 'class-transformer';
 
 export class SubscriberDto {
   @IsString()
@@ -33,6 +34,7 @@ export class SubscriberDto {
   studentId?: string;
 
   @IsInt()
+  @Type(() => Number)
   @IsOptional()
   @ApiProperty({
     description: 'The level of the subscriber',

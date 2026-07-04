@@ -2,11 +2,10 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
+  Logger,
   NotFoundException,
-  UnauthorizedException,
 } from '@nestjs/common';
-import { SubscriptionStatus } from 'prisma/generated/prisma/enums';
-import { DeviceDto } from 'src/dto/devices.dto';
+
 import { SubscriberDto } from 'src/dto/subscriber.dto';
 import { HelperService } from 'src/helpers/helpers.service';
 import { PlanService } from 'src/plan/plan.service';
@@ -14,6 +13,7 @@ import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class SubscriberService {
+  logger = new Logger(SubscriberService.name);
   constructor(
     private readonly prisma: PrismaService,
     private readonly helper: HelperService,
@@ -47,12 +47,15 @@ export class SubscriberService {
         throw new NotFoundException('Subscriber not found');
       }
 
-      await this.helper.setCache(cacheKey, subscriber, 60 * 60 * 24 * 1000);
+      await this.helper.setCache(cacheKey, subscriber, 5 * 60 * 1000);
       return {
         message: 'Subscriber details fetched successfully',
         data: subscriber,
       };
     } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
       throw new InternalServerErrorException(
         'Something went wrong while fetching subscriber details',
       );
@@ -77,6 +80,9 @@ export class SubscriberService {
 
       if (file) {
         const uploadResult = await this.helper.uploadMedia(file, id);
+        if (!uploadResult) {
+          throw new BadRequestException('Failed to upload media');
+        }
         profilePictureUrl = uploadResult.url;
       }
 
@@ -113,6 +119,7 @@ export class SubscriberService {
       };
     } catch (error) {
       if (error instanceof NotFoundException) throw error;
+      this.logger.error(error);
       throw new InternalServerErrorException(
         'Something went wrong while updating subscriber details',
       );

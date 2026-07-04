@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   HttpCode,
   HttpStatus,
   Patch,
@@ -106,5 +107,17 @@ export class AuthController {
     @Query('role') role: Role,
   ) {
     return this.authService.requestPasswordResetToken(email, role);
+  }
+
+  @Get('plans')
+  @ApiOperation({ summary: 'Get all active plans' })
+  async getPlans() {
+    return this.authService.getPlans();
+  }
+
+  @Get('institutions')
+  @ApiOperation({ summary: 'Get all active institutions' })
+  async getInstitutions() {
+    return this.authService.getInstitutions();
   }
 }

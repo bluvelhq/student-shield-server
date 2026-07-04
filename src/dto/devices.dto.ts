@@ -6,6 +6,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
+import { Transform } from 'class-transformer';
 import { DeviceType } from 'prisma/generated/prisma/enums';
 
 export class DeviceDto {
@@ -24,7 +25,7 @@ export class DeviceDto {
   })
   @IsString()
   @IsOptional()
-  name: string;
+  name?: string;
 
   @ApiProperty({
     example: 'iPhone 14 Pro',
@@ -40,7 +41,7 @@ export class DeviceDto {
   })
   @IsString()
   @IsOptional()
-  brand: string;
+  brand?: string;
 
   @ApiProperty({
     example: 'iOS',
@@ -48,7 +49,7 @@ export class DeviceDto {
   })
   @IsString()
   @IsOptional()
-  os: string;
+  os?: string;
 
   @ApiProperty({
     example: 'iPhone 14 Pro',
@@ -56,13 +57,15 @@ export class DeviceDto {
   })
   @IsString()
   @IsOptional()
-  serialCode: string;
+  serialCode?: string;
 
+  @Transform(({ value }) => (Array.isArray(value) ? value : [value]))
   @IsArray()
   @IsString({ each: true })
   @IsOptional()
   customDeviceFieldsKeys?: string[];
 
+  @Transform(({ value }) => (Array.isArray(value) ? value : [value]))
   @IsArray()
   @IsString({ each: true })
   @IsOptional()

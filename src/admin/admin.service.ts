@@ -35,10 +35,12 @@ export class AdminService {
 
     if (admin) throw new ConflictException('Admin already exists');
 
-    const adminSecretCode = this.config.get<string>('admin.secretCode');
+    const adminSecretCode = this.config.get<string>('app.adminSecretCode');
 
-    if (adminSecretCode !== secretCode)
+    if (adminSecretCode !== secretCode) {
+      console.log(secretCode, adminSecretCode);
       throw new UnauthorizedException('Invalid secret code');
+    }
 
     const serviceId = this.helper.generateServiceId();
 
@@ -809,5 +811,16 @@ export class AdminService {
       }
       throw new InternalServerErrorException('Failed to remove institution');
     }
+  }
+
+  async getAdminDetails(id: string) {
+    const admin = await this.prisma.admin.findUnique({
+      where: { id },
+    });
+    if (!admin) throw new NotFoundException('Admin not found');
+    return {
+      message: 'Admin details fetched successfully',
+      data: admin,
+    };
   }
 }

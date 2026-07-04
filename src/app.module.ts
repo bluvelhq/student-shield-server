@@ -3,7 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MulterModule } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { CustomThrottlerGuard } from './guards/custom-throttler.guard';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import appConfig from './config/app.config';
@@ -12,6 +13,17 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/adapters/handlebars.adapter';
 import { join } from 'path';
 import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
+
+// Feature Modules
+import { AuthModule } from './auth/auth.module';
+import { SubscriberModule } from './subscriber/subscriber.module';
+import { DeviceModule } from './device/device.module';
+import { RequestModule } from './request/request.module';
+import { PaymentModule } from './payment/payment.module';
+import { AdminModule } from './admin/admin.module';
+import { NotificationModule } from './notification/notification.module';
+import { PlanModule } from './plan/plan.module';
+import { HelperModule } from './helpers/helpers.module';
 
 @Module({
   imports: [
@@ -38,7 +50,7 @@ import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
         transport: {
           host: config.get('brevo.host'),
           port: Number(config.get('brevo.port')),
-          secure: true,
+          secure: false,
           auth: {
             user: config.get('brevo.user'),
             pass: config.get('brevo.pass'),
@@ -48,11 +60,11 @@ import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
           from: config.get('brevo.from'),
         },
         template: {
-          dir: join(__dirname, '..', 'views'),
+          dir: join(process.cwd(), 'views'),
           adapter: new HandlebarsAdapter(),
           options: { strict: true },
         },
-        preview: true,
+        preview: false,
       }),
     }),
     HttpModule.registerAsync({
@@ -63,12 +75,20 @@ import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
         timeout: Number(configService.get<string>('app.requestTimeout')),
       }),
     }),
+    AuthModule,
+    SubscriberModule,
+    DeviceModule,
+    RequestModule,
+    PaymentModule,
+    AdminModule,
+    NotificationModule,
+    PlanModule,
+    HelperModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    { provide: APP_GUARD, useClass: ThrottlerGuard },
-    { provide: APP_INTERCEPTOR, useClass: CacheInterceptor },
+    { provide: APP_GUARD, useClass: CustomThrottlerGuard },
   ],
 })
 export class AppModule {}

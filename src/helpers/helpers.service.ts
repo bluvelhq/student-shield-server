@@ -35,7 +35,7 @@ export class HelperService {
 
     let result = '';
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
 
@@ -161,7 +161,10 @@ export class HelperService {
         .from(this.bucketName)
         .upload(filePath, fileBuffer, {
           contentType: fileMimeType,
+          upsert: true,
+          cacheControl: '31536000',
         });
+      console.log(error);
 
       if (error) {
         throw new InternalServerErrorException('Failed to upload media', error);

@@ -5,8 +5,10 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  IsBoolean,
 } from 'class-validator';
 import { PlanType } from 'prisma/generated/prisma/enums';
+import { Type } from 'class-transformer';
 
 export class PlanDto {
   @IsNotEmpty()
@@ -15,10 +17,12 @@ export class PlanDto {
 
   @IsNumber()
   @IsNotEmpty()
+  @Type(() => Number)
   fee: number;
 
   @IsNumber()
   @IsNotEmpty()
+  @Type(() => Number)
   maxDevices: number;
 
   @IsString()
@@ -29,4 +33,8 @@ export class PlanDto {
   @IsNotEmpty()
   @IsString({ each: true })
   benefits: string[];
+
+  @IsBoolean()
+  @IsOptional()
+  isActive?: boolean;
 }

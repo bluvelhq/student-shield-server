@@ -129,7 +129,7 @@ export class DeviceService {
       return {
         message: 'Device added successfully',
         data: device,
-        qr,
+        qr: qr.data,
       };
     } catch (error) {
       if (

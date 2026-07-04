@@ -13,6 +13,7 @@ import { Request } from 'express';
 import { RequestService } from './request.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RequestDto } from 'src/dto/request.dto';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 interface AuthenticatedRequest extends Request {
   user: {
@@ -23,11 +24,13 @@ interface AuthenticatedRequest extends Request {
 }
 
 @Controller('requests')
+@ApiTags('Requests')
 export class RequestController {
   constructor(private readonly requestService: RequestService) {}
 
   @Post('create')
   @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Make a request' })
   async makeRequest(
     @Req() req: AuthenticatedRequest,
     @Body() body: RequestDto,
@@ -37,12 +40,14 @@ export class RequestController {
   }
 
   @Get('details')
+  @ApiOperation({ summary: 'Get request details' })
   async getRequestDetails(@Query('requestId') requestId: string) {
     return this.requestService.getRequestDetails(requestId);
   }
 
   @Get('list')
   @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Get subscriber requests' })
   async getSubscriberRequests(@Req() req: AuthenticatedRequest) {
     return this.requestService.getSubscriberRequests(req.user.id);
   }

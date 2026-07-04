@@ -127,39 +127,45 @@
   <body>
     <div class='container'>
       <div class='header'>
-        <img src='https://res.cloudinary.com/dqriuqty5/image/upload/v1782705686/LOGO_BLUE_koijjw.png' alt='Student Shield Logo' />
+        <img
+          src='https://res.cloudinary.com/dqriuqty5/image/upload/v1782705686/LOGO_BLUE_koijjw.png'
+          alt='Student Shield Logo'
+        />
       </div>
       <div class='content'>
         <h1>Request Status Updated</h1>
         <p>Hello {{firstName}},</p>
-        <p>The status of your service request has been updated. Here are the updated details:</p>
+        <p>The status of your service request has been updated. Here are the
+          updated details:</p>
 
         <div class='status-card'>
           <div class='status-row'>
-            <span class='status-label'>Request ID:</span>
+            <span class='status-label'>Request ID: </span>
             <span class='receipt-value'>{{requestId}}</span>
           </div>
           <div class='status-row'>
-            <span class='status-label'>Title:</span>
+            <span class='status-label'>Title: </span>
             <span class='receipt-value'>{{requestTitle}}</span>
           </div>
           <div class='status-row'>
-            <span class='status-label'>New Status:</span>
+            <span class='status-label'>New Status: </span>
             <span class='status-value'>
               <span class='status-badge'>{{newStatus}}</span>
             </span>
           </div>
         </div>
 
-        <p>Please log in to your portal if you have any questions or would like to track the request history.</p>
+        <p>Please log in to your portal if you have any questions or would like
+          to track the request history.</p>
 
         <div class='button-container'>
-          <a href='https://shield.bluvelhq.com/dashboard/requests' class='btn'>Track Request</a>
+          <a href='https://shield.bluvelhq.com/login' class='btn'>Track Request</a>
         </div>
       </div>
       <div class='footer'>
         <p>&copy; {{currentYear}} Student Shield. All rights reserved.</p>
-        <p>If you have any questions, feel free to reply to this email or reach us at
+        <p>If you have any questions, feel free to reply to this email or reach
+          us at
           <a href='mailto:info@bluvelhq.com'>info@bluvelhq.com</a>.</p>
       </div>
     </div>

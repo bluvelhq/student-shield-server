@@ -14,6 +14,7 @@ import {
   PaymentStatus,
   Role,
   SubscriptionStatus,
+  InstitutionStatus,
 } from 'prisma/generated/prisma/enums';
 import { AdminService } from 'src/admin/admin.service';
 import { SubscriberDto } from 'src/dto/subscriber.dto';
@@ -22,6 +23,8 @@ import { PaymentService } from 'src/payment/payment.service';
 import { PlanService } from 'src/plan/plan.service';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { ConfigService } from '@nestjs/config';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 
 @Injectable()
 export class AuthService {
@@ -32,6 +35,7 @@ export class AuthService {
     private readonly admin: AdminService,
     private readonly payment: PaymentService,
     private readonly jwt: JwtService,
+    private readonly config: ConfigService,
   ) {}
 
   logger = new Logger(AuthService.name);
@@ -94,7 +98,7 @@ export class AuthService {
             create: {
               amount: parseFloat(plan.fee.toString()),
               method: PaymentMethod.MOBILE_MONEY,
-              reference: data.reference,
+              reference: data.data.reference,
               status: PaymentStatus.PENDING,
             },
           },
@@ -117,6 +121,21 @@ export class AuthService {
       };
     } catch (error) {
       this.logger.error(error);
+      if (error instanceof ConflictException) {
+        throw error;
+      }
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      if (error instanceof UnauthorizedException) {
+        throw error;
+      }
+      if (
+        error instanceof PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
+        throw new ConflictException('A field already exists');
+      }
       throw new InternalServerErrorException(
         'Subscription failed, please try again',
       );
@@ -170,12 +189,15 @@ export class AuthService {
         throw new UnauthorizedException('Invalid credentials');
       }
 
-      const token = this.jwt.sign({
-        id,
-        serviceId: subscriber.serviceId,
-        role,
-        profilePicture,
-      });
+      const token = this.jwt.sign(
+        {
+          id,
+          serviceId: subscriber.serviceId,
+          role,
+          profilePicture,
+        },
+        { secret: this.config.get<string>('jwt.secret') },
+      );
 
       if (role === Role.SUBSCRIBER) {
         await this.prisma.subscriber.update({
@@ -203,7 +225,13 @@ export class AuthService {
         token,
       };
     } catch (error) {
-      this.logger.error(error);
+      if (
+        error instanceof UnauthorizedException ||
+        error instanceof NotFoundException ||
+        error instanceof ConflictException
+      ) {
+        throw error;
+      }
       throw new InternalServerErrorException('Login failed, please try again');
     }
   }
@@ -381,5 +409,87 @@ export class AuthService {
 
   async requestPasswordResetToken(email: string, role: Role) {
     return this.resetPassword(email, role);
+  }
+
+  async getPlans() {
+    let plans = await this.prisma.plan.findMany();
+    if (plans.length === 0) {
+      await this.prisma.plan.create({
+        data: {
+          type: 'BASIC',
+          fee: 20,
+          maxDevices: 1,
+          summary: 'Essential software support',
+          benefits: ['Software Installation', 'Hardware Fault Diagnosis'],
+        },
+      });
+      await this.prisma.plan.create({
+        data: {
+          type: 'PREMIUM',
+          fee: 50,
+          maxDevices: 1,
+          summary: 'Priority labor coverage',
+          benefits: [
+            'Software Installation',
+            'Hardware Fault Diagnosis',
+            'Technician Labor Repair',
+          ],
+        },
+      });
+      await this.prisma.plan.create({
+        data: {
+          type: 'BONANZA',
+          fee: 120,
+          maxDevices: 3,
+          summary: 'All-inclusive protection',
+          benefits: [
+            'Software Installation',
+            'Hardware Fault Diagnosis',
+            'Technician Labor Repair',
+            'Monthly Maintenance',
+          ],
+        },
+      });
+      plans = await this.prisma.plan.findMany();
+    }
+    return plans;
+  }
+
+  async getInstitutions() {
+    let institutions = await this.prisma.institution.findMany({
+      where: {
+        status: InstitutionStatus.ACTIVE,
+      },
+    });
+    if (institutions.length === 0) {
+      await this.prisma.institution.createMany({
+        data: [
+          {
+            name: 'University of Ghana (Legon)',
+            shortName: 'UG',
+            location: 'Accra',
+            status: InstitutionStatus.ACTIVE,
+          },
+          {
+            name: 'KNUST',
+            shortName: 'KNUST',
+            location: 'Kumasi',
+            status: InstitutionStatus.ACTIVE,
+          },
+          {
+            name: 'Ashesi University',
+            shortName: 'Ashesi',
+            location: 'Berekuso',
+            status: InstitutionStatus.ACTIVE,
+          },
+        ],
+      });
+      institutions = await this.prisma.institution.findMany({
+        where: {
+          status: InstitutionStatus.ACTIVE,
+        },
+      });
+    }
+    return institutions;
   }
 }

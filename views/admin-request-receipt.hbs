@@ -105,44 +105,49 @@
   <body>
     <div class='container'>
       <div class='header'>
-        <img src='https://res.cloudinary.com/dqriuqty5/image/upload/v1782705686/LOGO_BLUE_koijjw.png' alt='Student Shield Logo' />
+        <img
+          src='https://res.cloudinary.com/dqriuqty5/image/upload/v1782705686/LOGO_BLUE_koijjw.png'
+          alt='Student Shield Logo'
+        />
       </div>
       <div class='content'>
         <h1>New Service Request Received</h1>
         <p>Hello Admin,</p>
-        <p>A subscriber has submitted a new service request on Student Shield. Below are the details:</p>
+        <p>A subscriber has submitted a new service request on Student Shield.
+          Below are the details:</p>
 
         <div class='request-details'>
           <div class='detail-row'>
-            <span class='detail-label'>Request ID:</span>
+            <span class='detail-label'>Request ID: </span>
             <span class='detail-value'>{{requestId}}</span>
           </div>
           <div class='detail-row'>
-            <span class='detail-label'>Subscriber Name:</span>
+            <span class='detail-label'>Subscriber Name: </span>
             <span class='detail-value'>{{subscriberName}}</span>
           </div>
           <div class='detail-row'>
-            <span class='detail-label'>Subscriber Email:</span>
+            <span class='detail-label'>Subscriber Email: </span>
             <span class='detail-value'>{{subscriberEmail}}</span>
           </div>
           <div class='detail-row'>
-            <span class='detail-label'>Request Title:</span>
+            <span class='detail-label'>Request Title: </span>
             <span class='detail-value'>{{requestTitle}}</span>
           </div>
           <div class='detail-row'>
-            <span class='detail-label'>Service Type:</span>
+            <span class='detail-label'>Service Type: </span>
             <span class='detail-value'>{{requestType}}</span>
           </div>
           <div class='detail-row'>
-            <span class='detail-label'>Urgency Level:</span>
+            <span class='detail-label'>Urgency Level: </span>
             <span class='detail-value'>{{requestUrgency}}</span>
           </div>
         </div>
 
-        <p>Please log in to the admin panel to review and assign or progress this request.</p>
+        <p>Please log in to the admin panel to review and assign or progress
+          this request.</p>
 
         <div class='button-container'>
-          <a href='https://shield.bluvelhq.com/admin/requests' class='btn'>Review Request</a>
+          <a href='https://shield.bluvelhq.com/admin' class='btn'>Review Request</a>
         </div>
       </div>
       <div class='footer'>

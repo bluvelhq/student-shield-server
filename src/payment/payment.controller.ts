@@ -62,7 +62,7 @@ export class PaymentController {
         ? this.config.get<string>('paystack.testSecretKey')
         : this.config.get<string>('paystack.liveSecretKey');
 
-    if (!secret) throw new Error('Paystack secret key not found');
+    if (!secret) return res.status(401).send('Paystack secret key not found');
 
     const maybeRawBody: unknown = (req as unknown as { rawBody?: unknown })
       .rawBody;
@@ -77,7 +77,7 @@ export class PaymentController {
       .digest('hex');
 
     if (hash !== req.headers['x-paystack-signature']) {
-      throw new Error('Invalid webhook signature');
+      return res.status(401).send('Invalid webhook signature');
     }
 
     if (payload.event === 'charge.success') {
@@ -91,9 +91,9 @@ export class PaymentController {
         payload.data?.customer?.email || '',
       );
 
-      if (!subscriber.subscriber || !payment)
-        throw new Error('Subscriber not found');
-
+      if (!subscriber.subscriber || !payment) {
+        return res.status(404).send('Subscriber or payment record not found');
+      }
       const isValidTransaction = await this.payment.verifyTransaction(
         payload.data?.reference || '',
       );
@@ -126,6 +126,9 @@ export class PaymentController {
         });
       }
 
+      await this.helper.delCache(`subscriber:${subscriber.subscriber.id}`);
+      await this.helper.delCache(`subscriber_plan_${subscriber.subscriber.id}`);
+
       await this.prisma.payment.update({
         where: {
           reference: payload.data?.reference || '',
@@ -141,47 +144,52 @@ export class PaymentController {
         },
       });
 
-      if (payment.type === PaymentType.NEW) {
-        await this.helper.sendEmail(
-          subscriber.subscriber.email,
-          'Welcome to Student Shield!',
-          'welcome',
-          {
-            firstName: subscriber.subscriber.firstName,
-            serviceId: subscriber.subscriber.serviceId,
-            currentYear: new Date().getFullYear(),
-          },
-        );
-      } else if (payment.type === PaymentType.RENEWAL) {
-        await this.helper.sendEmail(
-          subscriber.subscriber.email,
-          'Subscription Renewed - Student Shield',
-          'renewal-message',
-          {
-            firstName: subscriber.subscriber.firstName,
-            planName: subscriber.subscriber.plan?.type || 'Standard',
-            amount: payment.amount,
-            reference: payment.reference,
-            currentYear: new Date().getFullYear(),
-          },
-        );
-      } else if (payment.type === PaymentType.UPGRADE) {
-        const upgradedPlan = await this.prisma.plan.findUnique({
-          where: { id: planIdToConnect },
-        });
+      // Send email notification (non-blocking — don't let email failures crash the webhook)
+      try {
+        if (payment.type === PaymentType.NEW) {
+          await this.helper.sendEmail(
+            subscriber.subscriber.email,
+            'Welcome to Student Shield!',
+            'welcome',
+            {
+              firstName: subscriber.subscriber.firstName,
+              serviceId: subscriber.subscriber.serviceId,
+              currentYear: new Date().getFullYear(),
+            },
+          );
+        } else if (payment.type === PaymentType.RENEWAL) {
+          await this.helper.sendEmail(
+            subscriber.subscriber.email,
+            'Subscription Renewed - Student Shield',
+            'renewal-message',
+            {
+              firstName: subscriber.subscriber.firstName,
+              planName: subscriber.subscriber.plan?.type || 'Standard',
+              amount: payment.amount,
+              reference: payment.reference,
+              currentYear: new Date().getFullYear(),
+            },
+          );
+        } else if (payment.type === PaymentType.UPGRADE) {
+          const upgradedPlan = await this.prisma.plan.findUnique({
+            where: { id: planIdToConnect },
+          });
 
-        await this.helper.sendEmail(
-          subscriber.subscriber.email,
-          'Plan Upgraded - Student Shield',
-          'upgrade-message',
-          {
-            firstName: subscriber.subscriber.firstName,
-            planName: upgradedPlan?.type || 'Premium',
-            amount: payment.amount,
-            reference: payment.reference,
-            currentYear: new Date().getFullYear(),
-          },
-        );
+          await this.helper.sendEmail(
+            subscriber.subscriber.email,
+            'Plan Upgraded - Student Shield',
+            'upgrade-message',
+            {
+              firstName: subscriber.subscriber.firstName,
+              planName: upgradedPlan?.type || 'Premium',
+              amount: payment.amount,
+              reference: payment.reference,
+              currentYear: new Date().getFullYear(),
+            },
+          );
+        }
+      } catch (emailError) {
+        console.error('Webhook email notification failed (non-fatal):', emailError);
       }
 
       return res.status(200).send('ok');
@@ -197,7 +205,7 @@ export class PaymentController {
       });
 
       if (!payment || !payment.subscriber) {
-        throw new Error('Payment or Subscriber not found');
+        return res.status(404).send('Payment or Subscriber not found');
       }
 
       await this.prisma.payment.update({
@@ -260,5 +268,54 @@ export class PaymentController {
   @UseGuards(JwtAuthGuard)
   async fetchSubscriberPaymentRecords(@Req() req: AuthenticatedRequest) {
     return this.payment.fetchSubscriberPaymentRecords(req.user.id);
+  }
+
+  @Post('dev-activate-payment')
+  async devActivatePayment(@Query('reference') reference: string) {
+    const payment = await this.prisma.payment.findUnique({
+      where: { reference },
+      include: { subscriber: { include: { plan: true } } },
+    });
+
+    if (!payment) {
+      throw new NotFoundException('Payment not found');
+    }
+
+    const planIdToConnect = payment.planId || payment.subscriber.planId || '';
+
+    if (payment.type === PaymentType.UPGRADE && payment.planId) {
+      await this.prisma.subscriber.update({
+        where: { id: payment.subscriber.id },
+        data: {
+          planId: payment.planId,
+          subscriptionStatus: SubscriptionStatus.ACTIVE,
+        },
+      });
+    } else {
+      await this.prisma.subscriber.update({
+        where: { id: payment.subscriber.id },
+        data: {
+          subscriptionStatus: SubscriptionStatus.ACTIVE,
+        },
+      });
+    }
+
+    await this.prisma.payment.update({
+      where: { reference },
+      data: {
+        status: PaymentStatus.SUCCESSFUL,
+        method: PaymentMethod.MOBILE_MONEY,
+        plan: {
+          connect: {
+            id: planIdToConnect,
+          },
+        },
+      },
+    });
+
+    return {
+      message: 'Dev payment activation successful',
+      payment,
+    };
   }
 }

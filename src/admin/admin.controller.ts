@@ -116,13 +116,13 @@ export class AdminController {
     );
   }
 
-  @Post('plan')
+  @Post('add/plan')
   @UseGuards(JwtAuthGuard)
   async addPlan(@Body() body: PlanDto, @Req() req: AuthenticatedRequest) {
     return this.adminService.addPlan(body, req.user.id);
   }
 
-  @Patch('plan')
+  @Patch('update/plan')
   @UseGuards(JwtAuthGuard)
   async updatePlan(
     @Query('planId') planId: string,
@@ -162,7 +162,7 @@ export class AdminController {
     );
   }
 
-  @Post('institution')
+  @Post('add/institution')
   @UseGuards(JwtAuthGuard)
   async addInstitution(
     @Body()
@@ -204,5 +204,11 @@ export class AdminController {
     @Req() req: AuthenticatedRequest,
   ) {
     return this.adminService.removeInstitution(institutionId, req.user.id);
+  }
+
+  @Get('profile')
+  @UseGuards(JwtAuthGuard)
+  async getAdminProfile(@Req() req: AuthenticatedRequest) {
+    return this.adminService.getAdminDetails(req.user.id);
   }
 }

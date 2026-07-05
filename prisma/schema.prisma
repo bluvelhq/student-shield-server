@@ -14,11 +14,11 @@ datasource db {
 
 model Subscriber {
   id                 String             @id @default(uuid())
-  email              String             @unique
+  email              String
   role               Role
   firstName          String             @map("first_name")
   lastName           String             @map("last_name")
-  studentId          String?            @unique @map("student_id")
+  studentId          String?            @map("student_id")
   level              Int?               @map("level")
   gender             Gender
   profilePicture     String?            @map("profile_picture")

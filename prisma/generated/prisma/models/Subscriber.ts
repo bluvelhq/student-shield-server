@@ -389,7 +389,6 @@ export type SubscriberOrderByWithRelationInput = {
 export type SubscriberWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   email?: string
-  studentId?: string
   serviceId?: string
   AND?: Prisma.SubscriberWhereInput | Prisma.SubscriberWhereInput[]
   OR?: Prisma.SubscriberWhereInput[]
@@ -397,6 +396,7 @@ export type SubscriberWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumRoleFilter<"Subscriber"> | $Enums.Role
   firstName?: Prisma.StringFilter<"Subscriber"> | string
   lastName?: Prisma.StringFilter<"Subscriber"> | string
+  studentId?: Prisma.StringNullableFilter<"Subscriber"> | string | null
   level?: Prisma.IntNullableFilter<"Subscriber"> | number | null
   gender?: Prisma.EnumGenderFilter<"Subscriber"> | $Enums.Gender
   profilePicture?: Prisma.StringNullableFilter<"Subscriber"> | string | null
@@ -417,7 +417,7 @@ export type SubscriberWhereUniqueInput = Prisma.AtLeast<{
   devices?: Prisma.DeviceListRelationFilter
   serviceRequests?: Prisma.ServiceRequestListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
-}, "id" | "email" | "studentId" | "serviceId">
+}, "id" | "email" | "serviceId">
 
 export type SubscriberOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

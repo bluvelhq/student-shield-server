@@ -48,9 +48,9 @@ export class AuthService {
     try {
       const subscriber = await this.helpers.fetchSubscriber(payload.email);
 
-      if (subscriber.subscriber) {
-        throw new ConflictException('User already exists');
-      }
+      // if (subscriber.subscriber) {
+      //   throw new ConflictException('User already exists');
+      // }
 
       const plan = await this.plan.fetchPlan(planId);
 

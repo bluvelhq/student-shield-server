@@ -14,7 +14,7 @@ datasource db {
 
 model Subscriber {
   id                 String             @id @default(uuid())
-  email              String
+  email              String             @unique
   role               Role
   firstName          String             @map("first_name")
   lastName           String             @map("last_name")
